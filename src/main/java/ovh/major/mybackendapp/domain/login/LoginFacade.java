@@ -2,33 +2,25 @@ package ovh.major.mybackendapp.domain.login;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
+import ovh.major.mybackendapp.domain.login.dto.SingleUserDTO;
+
 
 @Component
 @AllArgsConstructor
 public class LoginFacade {
 
     private final SingleUser singleUser;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserResponseDTO authenticateUser(UserRequestDTO userRequestDto) {
-
-        if ( userNameAndPasswordIsCorrect( userRequestDto.name(), userRequestDto.password() ) ) {
-            return UserResponseDTO.builder()
-                    .name(userRequestDto.name())
-                    .isLogged( true )
+    public SingleUserDTO findByName(String username) {
+        if (singleUser.name().equals(username)) {
+            return SingleUserDTO.builder()
+                    .name(singleUser.name())
+                    .password(singleUser.hashedPassword())
                     .build();
         } else {
-            return UserResponseDTO.builder()
-                    .name(userRequestDto.name())
-                    .isLogged( false )
-                    .build();
+            throw new BadCredentialsException("User not found");
         }
-    }
-
-    private boolean userNameAndPasswordIsCorrect(String name, String password) {
-        boolean passIsEqual = passwordEncoder.matches(password, singleUser.hashedPassword());
-        return ((name.equals(singleUser.name())) && passIsEqual );
     }
 }

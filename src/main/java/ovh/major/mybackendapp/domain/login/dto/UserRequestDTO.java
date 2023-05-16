@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.login;
+package ovh.major.mybackendapp.domain.login.dto;
 
 import lombok.Builder;
 

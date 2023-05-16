@@ -1,3 +1,16 @@
-user:
-  name: ${USER_NAME}
+app_user:
+  name: ${X_USER_NAME}
   hashedPassword: ${HASHED_PASS}
+
+auth:
+  jwt:
+    expirationDays: 1
+    secret: ${JWT_SECRET}
+    issuer: my-backend
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT
