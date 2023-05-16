@@ -1,0 +1,3 @@
+user:
+  name: ${USER_NAME}
+  hashedPassword: ${HASHED_PASS}
