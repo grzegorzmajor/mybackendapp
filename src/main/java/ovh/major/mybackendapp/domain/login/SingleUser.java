@@ -16,9 +16,5 @@ public record SingleUser(
                 this.hashedPassword = hashedPassword;
         }
 
-        public boolean isEqual(String name, String password, PasswordEncoder passwordEncoder) {
-                boolean passIsEqual = passwordEncoder.matches(password,this.hashedPassword);
-                return ((name.equals(this.name)) && passIsEqual );
-        }
 }
 

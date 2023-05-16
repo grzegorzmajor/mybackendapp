@@ -16,7 +16,7 @@ public class LoginFacade {
 
         String hashedPassword = passwordEncoder.encode(userRequestDto.password());
 
-        if ( singleUser.isEqual( userRequestDto.name(), userRequestDto.password(), passwordEncoder) ) {
+        if ( userNameAndPasswordIsCorrect( userRequestDto.name(), userRequestDto.password() ) ) {
             return UserResponseDTO.builder()
                     .name(userRequestDto.name())
                     .isLogged( true )
@@ -27,5 +27,10 @@ public class LoginFacade {
                     .isLogged( false )
                     .build();
         }
+    }
+
+    private boolean userNameAndPasswordIsCorrect(String name, String password) {
+        boolean passIsEqual = passwordEncoder.matches(password, singleUser.hashedPassword());
+        return ((name.equals(singleUser.name())) && passIsEqual );
     }
 }
