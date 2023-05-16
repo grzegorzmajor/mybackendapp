@@ -1,7 +1,6 @@
 package ovh.major.mybackendapp.domain.login;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginFacadeTest {
 
     private final SingleUser singleUserForTests =  new SingleUser("user","$2a$12$PVKK8k5bWlgmUlpWQGTGPeNZNbRYCyYR3pn/uFBVTLvEWLL7AeWf2"); //encrypted "pass"
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final LoginFacade loginFacade = new LoginFacade(singleUserForTests,passwordEncoder);
 
 

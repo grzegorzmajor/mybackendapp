@@ -14,8 +14,6 @@ public class LoginFacade {
 
     public UserResponseDTO authenticateUser(UserRequestDTO userRequestDto) {
 
-        String hashedPassword = passwordEncoder.encode(userRequestDto.password());
-
         if ( userNameAndPasswordIsCorrect( userRequestDto.name(), userRequestDto.password() ) ) {
             return UserResponseDTO.builder()
                     .name(userRequestDto.name())
