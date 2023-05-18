@@ -14,3 +14,13 @@ components:
       type: http
       scheme: Bearer
       bearerFormat: JWT
+
+server:
+  ssl:
+    key-store: src/main/resources/keystore/major.p12
+    key-store-password: ${KEY_STORE_PASS}
+    key-password: ${KEY_STORE_PASS}
+    key-store-type: PKCS12
+    key-alias: major.ovh
+  port: 443
+
