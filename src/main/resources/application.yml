@@ -24,3 +24,16 @@ server:
     key-alias: major.ovh
   port: 443
 
+spring:
+  jpa:
+    #show-sql: true
+    hibernate:
+      #It is a good security practice to, after your database is in a production state, set this to none, revoke all
+      #privileges from the MySQL user connected to the Spring application, and give the MySQL user only SELECT, UPDATE, INSERT, and DELETE.
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:3306/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
