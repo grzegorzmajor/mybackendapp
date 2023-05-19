@@ -3,26 +3,24 @@ package ovh.major.mybackendapp.domain.blog;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class BlogPost {
-
+public class BlogPostParagraph {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @NotBlank
-    private String addedDate;
+    private Integer paragraphType;
 
     @NotBlank
-    private String publicationDate;
+    private String paragraphContent;
 
-    @OneToMany
-    private List<BlogPostParagraph> paragraphs;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private BlogPost blogPost;
 
 }
