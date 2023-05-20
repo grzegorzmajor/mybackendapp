@@ -8,19 +8,16 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
-public class BlogPostParagraph {
+class BlogPostParagraph {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @OneToOne
     @NotBlank
-    private Integer paragraphType;
+    private BlogMarkupDictionary tag;
 
     @NotBlank
     private String paragraphContent;
-
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private BlogPost blogPost;
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class BlogPost {
+class BlogPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
