@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,10 +18,8 @@ class BlogPost {
     private Integer id;
 
     @NotBlank
-    private String addedDate;
-
-    @NotBlank
-    private String publicationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date addedDate;
 
     @OneToMany
     private List<BlogPostParagraph> paragraphs;
