@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
@@ -19,8 +20,10 @@ class BlogMarkupDictionary {
     private Integer id;
 
     @NotBlank
+    @Pattern(regexp = "<([^\\s/\\\\]).*>", message = "The opening tag must start with '<', the second character cannot be a space or / \\ and end with '>'")
     private String opening;
 
     @NotBlank
+    @Pattern(regexp = "</[^\\s]*>", message = "The string must start with '</' and end with '>' without containing spaces")
     private String closing;
 }
