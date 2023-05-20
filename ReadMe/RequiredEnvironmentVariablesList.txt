@@ -1,0 +1,17 @@
+Required Environment Variables List:
+
+1. secret code for token generation  (for jwt configuration in application.yml)
+JWT_SECRET=
+
+2. password for certificate (for ssl configuration in application.yml)
+KEY_STORE_PASS=
+
+3. single user username and password (I used single user authorization)
+X_USER_NAME=
+HASHED_PASS=
+
+4. for database connection
+DB_HOST=
+DB_USER=
+DB_PASS=
+DB_NAME=

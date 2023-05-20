@@ -34,3 +34,4 @@ build/
 /src/main/resources/keystore/major.p12
 /src/main/resources/keystore/major.jks
 /.
+/pom.xml.old
