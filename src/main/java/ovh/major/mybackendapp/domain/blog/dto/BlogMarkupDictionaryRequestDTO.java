@@ -1,6 +1,7 @@
 package ovh.major.mybackendapp.domain.blog.dto;
 
 public record BlogMarkupDictionaryRequestDTO(
-    String opening,
-    String closing
+        Integer id,
+        String opening,
+        String closing
 ) {}

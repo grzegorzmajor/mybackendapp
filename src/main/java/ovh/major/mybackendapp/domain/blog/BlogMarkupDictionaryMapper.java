@@ -7,6 +7,7 @@ public class BlogMarkupDictionaryMapper {
 
     public static BlogMarkupDictionaryEntity mapFromRequestDto(BlogMarkupDictionaryRequestDTO requestDTO) {
         return BlogMarkupDictionaryEntity.builder()
+                .id(requestDTO.id())
                 .opening(requestDTO.opening())
                 .closing(requestDTO.closing())
                 .build();
