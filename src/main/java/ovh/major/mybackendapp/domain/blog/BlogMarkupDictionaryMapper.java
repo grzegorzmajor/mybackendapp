@@ -14,6 +14,7 @@ public class BlogMarkupDictionaryMapper {
 
     public static BlogMarkupDictionaryResponseDTO mapToResponseDto(BlogMarkupDictionaryEntity blogMarkupDictionary) {
         return BlogMarkupDictionaryResponseDTO.builder()
+                .id(blogMarkupDictionary.getId())
                 .opening(blogMarkupDictionary.getOpening())
                 .closing(blogMarkupDictionary.getClosing())
                 .build();
