@@ -17,7 +17,7 @@ class BlogPostParagraphEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToOne
+    @ManyToOne
     @NotBlank
     private BlogMarkupDictionaryEntity tag;
 
