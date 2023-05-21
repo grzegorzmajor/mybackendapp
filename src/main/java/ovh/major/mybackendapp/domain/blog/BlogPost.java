@@ -1,8 +1,7 @@
 package ovh.major.mybackendapp.domain.blog;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -11,6 +10,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 class BlogPost {
 
     @Id
