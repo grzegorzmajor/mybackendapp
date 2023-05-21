@@ -1,8 +1,8 @@
 package ovh.major.mybackendapp.domain.blog.dto;
 
+import java.util.List;
+
 public record BlogPostRequestDTO (
         String addedDate,
-
-        String content
-
+        List<BlogPostParagraphRequestDTO> paragraphs
 ){}
