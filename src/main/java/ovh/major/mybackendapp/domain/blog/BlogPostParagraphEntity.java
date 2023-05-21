@@ -12,14 +12,14 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-class BlogPostParagraph {
+class BlogPostParagraphEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @OneToOne
     @NotBlank
-    private BlogMarkupDictionary tag;
+    private BlogMarkupDictionaryEntity tag;
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "The value cannot contain special characters.")

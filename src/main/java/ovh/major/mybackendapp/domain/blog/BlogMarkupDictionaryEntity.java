@@ -10,9 +10,9 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
-class BlogMarkupDictionary {
+@Builder
+class BlogMarkupDictionaryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

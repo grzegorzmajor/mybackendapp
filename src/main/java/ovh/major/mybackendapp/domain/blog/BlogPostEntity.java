@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-class BlogPost {
+class BlogPostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +24,6 @@ class BlogPost {
     private Date addedDate;
 
     @OneToMany
-    private List<BlogPostParagraph> paragraphs;
+    private List<BlogPostParagraphEntity> paragraphs;
 
 }
