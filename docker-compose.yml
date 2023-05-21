@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  maria_db:
+    image: "mariadb:10.5.8"
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: major_backend
+      MYSQL_USER: majorek
+      MYSQL_PASSWORD: testowehaslo1
+      MYSQL_ROOT_PASSWORD: testowehaslo2
