@@ -18,6 +18,7 @@ public class BlogPostMapper {
         paragraphEntities = listMapperFromRequestDto(requestDTO.paragraphs());
 
         return BlogPostEntity.builder()
+
                 .paragraphs(paragraphEntities)
                 .build();
     }
@@ -28,7 +29,8 @@ public class BlogPostMapper {
         paragraphResponse = listMapperToResponseDto(blogPost.getParagraphs());
 
         return BlogPostResponseDTO.builder()
-                .addedDate(blogPost.getAddedDate().toString())
+                .id(blogPost.getId())
+                .addedDate(blogPost.getAddedDate())
                 .paragraphs(paragraphResponse)
                 .build();
 
