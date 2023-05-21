@@ -23,7 +23,9 @@ class BlogPostEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date addedDate;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "paragraph_id")
     private List<BlogPostParagraphEntity> paragraphs;
+
 
 }
