@@ -1,9 +1,6 @@
 package ovh.major.mybackendapp.domain.blog;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +18,7 @@ class BlogMarkupDictionary {
 
     @NotBlank
     @Pattern(regexp = "<([^\\s/\\\\]).*>", message = "The opening tag must start with '<', the second character cannot be a space or / \\ and end with '>'")
+    @Column(unique = true)
     private String opening;
 
     @NotBlank
