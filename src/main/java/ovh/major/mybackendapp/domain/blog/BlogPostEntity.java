@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -21,7 +21,7 @@ class BlogPostEntity {
 
     @NotBlank
     @Temporal(TemporalType.TIMESTAMP)
-    private Date addedDate;
+    private Timestamp addedDate;
 
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "paragraph_id")
