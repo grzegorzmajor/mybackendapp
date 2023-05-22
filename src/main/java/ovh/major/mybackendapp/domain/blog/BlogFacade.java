@@ -7,6 +7,7 @@ import ovh.major.mybackendapp.domain.blog.dto.BlogMarkupDictionaryResponseDTO;
 import ovh.major.mybackendapp.domain.blog.dto.BlogPostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.BlogPostResponseDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -57,6 +58,8 @@ public class BlogFacade {
                         postEntity.getParagraphs()
                 ));
 
+        postEntity.setAddedDate( new Timestamp( System.currentTimeMillis() ));
+
         return BlogPostMapper.mapToResponseDto(
                 blogPostRepository.save(postEntity)
         );
@@ -65,9 +68,9 @@ public class BlogFacade {
     private List<BlogPostParagraphEntity> findAndReturnListWithThemWhenExistInRepository(List<BlogPostParagraphEntity> paragraphEntities) {
         return paragraphEntities.stream()
                 .map(paragraph -> {
-                    BlogMarkupDictionaryEntity databaseTagEntity = blogMarkupDictionaryRepository.findFirstByOpening(
+                    BlogMarkupDictionaryEntity responseFromDatabaseTagEntity = blogMarkupDictionaryRepository.findFirstByOpening(
                             paragraph.getTag().getOpening());
-                    if (databaseTagEntity.getId()>0) paragraph.setTag(databaseTagEntity);
+                    if ( (responseFromDatabaseTagEntity != null) && ( responseFromDatabaseTagEntity.getId() > 0 ))  paragraph.setTag(responseFromDatabaseTagEntity);
                     return paragraph;
                 }).toList();
     }
