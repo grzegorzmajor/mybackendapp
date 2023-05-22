@@ -2,10 +2,7 @@ package ovh.major.mybackendapp.domain.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import ovh.major.mybackendapp.domain.blog.dto.BlogMarkupDictionaryRequestDTO;
-import ovh.major.mybackendapp.domain.blog.dto.BlogMarkupDictionaryResponseDTO;
-import ovh.major.mybackendapp.domain.blog.dto.BlogPostRequestDTO;
-import ovh.major.mybackendapp.domain.blog.dto.BlogPostResponseDTO;
+import ovh.major.mybackendapp.domain.blog.dto.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -73,5 +70,26 @@ public class BlogFacade {
                     if ( (responseFromDatabaseTagEntity != null) && ( responseFromDatabaseTagEntity.getId() > 0 ))  paragraph.setTag(responseFromDatabaseTagEntity);
                     return paragraph;
                 }).toList();
+    }
+
+    public BlogPostParagraphResponseDTO patchParagraph(BlogPostParagraphRequestDTO requestDTO) {
+
+        BlogPostParagraphEntity responseFromDatabaseParagraphEntity = blogPostParagraphRepository.findFirstById(requestDTO.id());
+
+        BlogPostParagraphEntity postParagraphEntity = BlogPostParagraphMapper.mapFromRequestDto( requestDTO );
+
+        responseFromDatabaseParagraphEntity.setTag(postParagraphEntity.getTag());
+        responseFromDatabaseParagraphEntity.setParagraphContent(postParagraphEntity.getParagraphContent());
+
+        BlogMarkupDictionaryEntity responseFromDatabaseMarkupDictionaryEntity = blogMarkupDictionaryRepository.findFirstByOpening(responseFromDatabaseParagraphEntity.getTag().getOpening());
+
+        responseFromDatabaseParagraphEntity.setTag(responseFromDatabaseMarkupDictionaryEntity);
+
+        return BlogPostParagraphMapper.mapToResponseDto(blogPostParagraphRepository.save(responseFromDatabaseParagraphEntity));
+
+    }
+
+    public BlogPostParagraphResponseDTO getParagraph(String id) {
+        return BlogPostParagraphMapper.mapToResponseDto( blogPostParagraphRepository.findFirstById(Integer.parseInt(id)));
     }
 }
