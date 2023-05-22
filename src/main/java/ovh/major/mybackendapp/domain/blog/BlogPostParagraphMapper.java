@@ -7,6 +7,7 @@ public class BlogPostParagraphMapper {
 
     public static BlogPostParagraphEntity mapFromRequestDto(BlogPostParagraphRequestDTO requestDTO) {
         return BlogPostParagraphEntity.builder()
+                .id(requestDTO.id())
                 .paragraphContent(requestDTO.paragraphContent())
                 .tag(BlogMarkupDictionaryMapper.mapFromRequestDto(
                         requestDTO.tag()))
