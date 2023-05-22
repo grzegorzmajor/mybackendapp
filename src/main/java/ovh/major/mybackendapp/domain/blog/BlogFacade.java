@@ -52,8 +52,23 @@ public class BlogFacade {
     public BlogPostResponseDTO savePost(BlogPostRequestDTO requestDTO) {
         BlogPostEntity postEntity =  BlogPostMapper.mapFromRequestDto(requestDTO);
 
+        postEntity.setParagraphs(
+                findAndReturnListWithThemWhenExistInRepository(
+                        postEntity.getParagraphs()
+                ));
+
         return BlogPostMapper.mapToResponseDto(
                 blogPostRepository.save(postEntity)
         );
+    }
+
+    private List<BlogPostParagraphEntity> findAndReturnListWithThemWhenExistInRepository(List<BlogPostParagraphEntity> paragraphEntities) {
+        return paragraphEntities.stream()
+                .map(paragraph -> {
+                    BlogMarkupDictionaryEntity databaseTagEntity = blogMarkupDictionaryRepository.findFirstByOpening(
+                            paragraph.getTag().getOpening());
+                    if (databaseTagEntity.getId()>0) paragraph.setTag(databaseTagEntity);
+                    return paragraph;
+                }).toList();
     }
 }
