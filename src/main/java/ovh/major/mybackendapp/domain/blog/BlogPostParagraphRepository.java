@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 interface BlogPostParagraphRepository extends CrudRepository<BlogPostParagraphEntity, Integer>
 {
 
+    BlogPostParagraphEntity findFirstById(Integer id);
+
 }
