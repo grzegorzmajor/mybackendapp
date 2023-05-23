@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-class BlogPostEntity {
+class PostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +25,7 @@ class BlogPostEntity {
 
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "paragraph_id")
-    private List<BlogPostParagraphEntity> paragraphs;
+    private List<ParagraphEntity> paragraphs;
 
 
 }

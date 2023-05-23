@@ -2,7 +2,7 @@ package ovh.major.mybackendapp.domain.blog.dto;
 
 import java.util.List;
 
-public record BlogPostRequestDTO (
+public record PostRequestDTO(
         Integer id,
-        List<BlogPostParagraphRequestDTO> paragraphs
+        List<ParagraphRequestDTO> paragraphs
 ){}

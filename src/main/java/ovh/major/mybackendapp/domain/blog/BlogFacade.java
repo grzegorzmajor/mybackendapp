@@ -13,23 +13,23 @@ import java.util.stream.StreamSupport;
 @AllArgsConstructor
 public class BlogFacade {
 
-    private final BlogPostRepository blogPostRepository;
-    private final BlogPostParagraphRepository blogPostParagraphRepository;
-    private final BlogMarkupDictionaryRepository blogMarkupDictionaryRepository;
+    private final PostRepository blogPostRepository;
+    private final ParagraphRepository blogPostParagraphRepository;
+    private final MarkupDictionaryRepository blogMarkupDictionaryRepository;
 
 
-    public List<BlogMarkupDictionaryResponseDTO> findAllMarkups() {
-        List<BlogMarkupDictionaryEntity> markups = StreamSupport.stream( blogMarkupDictionaryRepository.findAll().spliterator(), false)
+    public List<MarkupDictionaryResponseDTO> findAllMarkups() {
+        List<MarkupDictionaryEntity> markups = StreamSupport.stream( blogMarkupDictionaryRepository.findAll().spliterator(), false)
                 .toList();
         return markups.stream()
-                .map(BlogMarkupDictionaryMapper::mapToResponseDto)
+                .map(MarkupDictionaryMapper::mapToResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public BlogMarkupDictionaryResponseDTO saveMarkup(BlogMarkupDictionaryRequestDTO requestDTO) {
-        return BlogMarkupDictionaryMapper.mapToResponseDto(
+    public MarkupDictionaryResponseDTO saveMarkup(MarkupDictionaryRequestDTO requestDTO) {
+        return MarkupDictionaryMapper.mapToResponseDto(
                 blogMarkupDictionaryRepository.save(
-                        BlogMarkupDictionaryMapper.mapFromRequestDto(requestDTO)
+                        MarkupDictionaryMapper.mapFromRequestDto(requestDTO)
                 )
         );
 
@@ -39,16 +39,16 @@ public class BlogFacade {
         blogMarkupDictionaryRepository.deleteById(Integer.parseInt(id));
     }
 
-    public List<BlogPostResponseDTO> findAllPosts() {
-        List<BlogPostEntity> markups = StreamSupport.stream( blogPostRepository.findAll().spliterator(), false)
+    public List<PostResponseDTO> findAllPosts() {
+        List<PostEntity> markups = StreamSupport.stream( blogPostRepository.findAll().spliterator(), false)
                 .toList();
         return markups.stream()
-                .map(BlogPostMapper::mapToResponseDto)
+                .map(PostMapper::mapToResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public BlogPostResponseDTO savePost(BlogPostRequestDTO requestDTO) {
-        BlogPostEntity postEntity =  BlogPostMapper.mapFromRequestDto(requestDTO);
+    public PostResponseDTO savePost(PostRequestDTO requestDTO) {
+        PostEntity postEntity =  PostMapper.mapFromRequestDto(requestDTO);
 
         postEntity.setParagraphs(
                 findAndReturnListWithThemWhenExistInRepository(
@@ -57,39 +57,39 @@ public class BlogFacade {
 
         postEntity.setAddedDate( new Timestamp( System.currentTimeMillis() ));
 
-        return BlogPostMapper.mapToResponseDto(
+        return PostMapper.mapToResponseDto(
                 blogPostRepository.save(postEntity)
         );
     }
 
-    private List<BlogPostParagraphEntity> findAndReturnListWithThemWhenExistInRepository(List<BlogPostParagraphEntity> paragraphEntities) {
+    private List<ParagraphEntity> findAndReturnListWithThemWhenExistInRepository(List<ParagraphEntity> paragraphEntities) {
         return paragraphEntities.stream()
                 .map(paragraph -> {
-                    BlogMarkupDictionaryEntity responseFromDatabaseTagEntity = blogMarkupDictionaryRepository.findFirstByOpening(
+                    MarkupDictionaryEntity responseFromDatabaseTagEntity = blogMarkupDictionaryRepository.findFirstByOpening(
                             paragraph.getTag().getOpening());
                     if ( (responseFromDatabaseTagEntity != null) && ( responseFromDatabaseTagEntity.getId() > 0 ))  paragraph.setTag(responseFromDatabaseTagEntity);
                     return paragraph;
                 }).toList();
     }
 
-    public BlogPostParagraphResponseDTO patchParagraph(BlogPostParagraphRequestDTO requestDTO) {
+    public ParagraphResponseDTO patchParagraph(ParagraphRequestDTO requestDTO) {
 
-        BlogPostParagraphEntity responseFromDatabaseParagraphEntity = blogPostParagraphRepository.findFirstById(requestDTO.id());
+        ParagraphEntity responseFromDatabaseParagraphEntity = blogPostParagraphRepository.findFirstById(requestDTO.id());
 
-        BlogPostParagraphEntity postParagraphEntity = BlogPostParagraphMapper.mapFromRequestDto( requestDTO );
+        ParagraphEntity postParagraphEntity = ParagraphMapper.mapFromRequestDto( requestDTO );
 
         responseFromDatabaseParagraphEntity.setTag(postParagraphEntity.getTag());
         responseFromDatabaseParagraphEntity.setParagraphContent(postParagraphEntity.getParagraphContent());
 
-        BlogMarkupDictionaryEntity responseFromDatabaseMarkupDictionaryEntity = blogMarkupDictionaryRepository.findFirstByOpening(responseFromDatabaseParagraphEntity.getTag().getOpening());
+        MarkupDictionaryEntity responseFromDatabaseMarkupDictionaryEntity = blogMarkupDictionaryRepository.findFirstByOpening(responseFromDatabaseParagraphEntity.getTag().getOpening());
 
         responseFromDatabaseParagraphEntity.setTag(responseFromDatabaseMarkupDictionaryEntity);
 
-        return BlogPostParagraphMapper.mapToResponseDto(blogPostParagraphRepository.save(responseFromDatabaseParagraphEntity));
+        return ParagraphMapper.mapToResponseDto(blogPostParagraphRepository.save(responseFromDatabaseParagraphEntity));
 
     }
 
-    public BlogPostParagraphResponseDTO getParagraph(String id) {
-        return BlogPostParagraphMapper.mapToResponseDto( blogPostParagraphRepository.findFirstById(Integer.parseInt(id)));
+    public ParagraphResponseDTO getParagraph(String id) {
+        return ParagraphMapper.mapToResponseDto( blogPostParagraphRepository.findFirstById(Integer.parseInt(id)));
     }
 }

@@ -1,9 +1,9 @@
 package ovh.major.mybackendapp.domain.blog.dto;
 
-public record BlogPostParagraphRequestDTO(
+public record ParagraphRequestDTO(
 
         Integer id,
-        BlogMarkupDictionaryRequestDTO tag,
+        MarkupDictionaryRequestDTO tag,
         String paragraphContent
 ) {
 }

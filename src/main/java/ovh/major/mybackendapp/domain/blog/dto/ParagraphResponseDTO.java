@@ -3,9 +3,9 @@ package ovh.major.mybackendapp.domain.blog.dto;
 import lombok.Builder;
 
 @Builder
-public record BlogPostParagraphResponseDTO(
+public record ParagraphResponseDTO(
     Integer id,
-    BlogMarkupDictionaryResponseDTO tag,
+    MarkupDictionaryResponseDTO tag,
     String paragraphContent
 ) {
 }

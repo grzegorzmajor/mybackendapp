@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-class BlogMarkupDictionaryEntity {
+class MarkupDictionaryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

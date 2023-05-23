@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-class BlogPostParagraphEntity {
+class ParagraphEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -20,7 +20,7 @@ class BlogPostParagraphEntity {
     @ManyToOne(cascade = {CascadeType.ALL})
     @NotBlank
     @JoinColumn(name = "dictionary_id")
-    private BlogMarkupDictionaryEntity tag;
+    private MarkupDictionaryEntity tag;
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "The value cannot contain special characters.")

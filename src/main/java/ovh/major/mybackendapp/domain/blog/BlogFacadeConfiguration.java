@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Configuration;
 public class BlogFacadeConfiguration {
 
     @Bean
-    BlogFacade blogFacade(BlogPostRepository blogPostRepository,
-                          BlogPostParagraphRepository blogPostParagraphRepository,
-                          BlogMarkupDictionaryRepository blogMarkupDictionaryRepository){
+    BlogFacade blogFacade(PostRepository blogPostRepository,
+                          ParagraphRepository blogPostParagraphRepository,
+                          MarkupDictionaryRepository blogMarkupDictionaryRepository){
         return new BlogFacade(blogPostRepository, blogPostParagraphRepository, blogMarkupDictionaryRepository);
     }
 

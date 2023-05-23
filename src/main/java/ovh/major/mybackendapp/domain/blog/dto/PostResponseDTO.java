@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 @Builder
-public record BlogPostResponseDTO(
+public record PostResponseDTO(
         Integer id,
         Date addedDate,
-        List<BlogPostParagraphResponseDTO> paragraphs
+        List<ParagraphResponseDTO> paragraphs
 ) {
 }
