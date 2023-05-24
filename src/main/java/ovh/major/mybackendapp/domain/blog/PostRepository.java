@@ -1,9 +1,8 @@
 package ovh.major.mybackendapp.domain.blog;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-
-interface PostRepository extends CrudRepository<PostEntity, Integer>
+interface PostRepository extends JpaRepository<PostEntity, Integer>
 {
 
 }

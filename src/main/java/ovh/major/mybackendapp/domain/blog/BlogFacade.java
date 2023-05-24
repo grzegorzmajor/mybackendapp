@@ -2,6 +2,8 @@ package ovh.major.mybackendapp.domain.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ovh.major.mybackendapp.domain.blog.dto.*;
 
 import java.sql.Timestamp;
@@ -45,6 +47,11 @@ public class BlogFacade {
         return markups.stream()
                 .map(PostMapper::mapToResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable) {
+        Page<PostEntity> postsPage = blogPostRepository.findAll(pageable);
+        return postsPage.map(PostMapper::mapToResponseDto);
     }
 
     public PostResponseDTO savePost(PostRequestDTO requestDTO) {
@@ -92,4 +99,6 @@ public class BlogFacade {
     public ParagraphResponseDTO getParagraph(String id) {
         return ParagraphMapper.mapToResponseDto( blogPostParagraphRepository.findFirstById(Integer.parseInt(id)));
     }
+
+
 }

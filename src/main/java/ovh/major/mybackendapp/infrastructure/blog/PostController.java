@@ -3,6 +3,8 @@ package ovh.major.mybackendapp.infrastructure.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ovh.major.mybackendapp.domain.blog.BlogFacade;
@@ -19,10 +21,15 @@ public class PostController {
 
     BlogFacade blogFacade;
 
-    @GetMapping
+    @GetMapping(params = {"!page", "!size"})
     public ResponseEntity<List<PostResponseDTO>> findAllPosts() {
         List<PostResponseDTO> allPosts = blogFacade.findAllPosts() ;
         return ResponseEntity.ok(allPosts);
+    }
+    @GetMapping(params = {"page", "size"})
+    public ResponseEntity<Page<PostResponseDTO>> findAllPostsPageable(Pageable pageable) {
+        Page<PostResponseDTO> postsPage = blogFacade.findAllPostsPageable(pageable);
+        return ResponseEntity.ok(postsPage);
     }
 
     @PostMapping
