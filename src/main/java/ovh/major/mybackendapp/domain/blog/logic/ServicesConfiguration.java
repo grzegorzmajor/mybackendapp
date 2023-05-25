@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ServicesConfiguration {
+class ServicesConfiguration {
 
     @Bean
     MarkupDictionaryService markupDictionaryService(MarkupDictionaryRepository markupDictionaryRepository) {

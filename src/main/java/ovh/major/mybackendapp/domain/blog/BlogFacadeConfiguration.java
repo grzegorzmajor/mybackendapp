@@ -7,7 +7,7 @@ import ovh.major.mybackendapp.domain.blog.logic.ParagraphService;
 import ovh.major.mybackendapp.domain.blog.logic.PostService;
 
 @Configuration
-public class BlogFacadeConfiguration {
+class BlogFacadeConfiguration {
 
     @Bean
     BlogFacade blogFacade(PostService postService,
