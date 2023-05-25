@@ -3,7 +3,9 @@ package ovh.major.mybackendapp.domain.blog.logic;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import ovh.major.mybackendapp.domain.blog.dto.PostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
 
@@ -29,7 +31,11 @@ public class PostService {
     }
 
     public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable) {
-        Page<PostEntity> postsPage = postRepository.findAll(pageable);
+        Sort additionalSort = Sort.by(Sort.Direction.DESC,"addedDate" );
+        Sort currentSort = pageable.getSort();
+        Sort mergedSort = currentSort.and(additionalSort);
+        Pageable updatedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), mergedSort);
+        Page<PostEntity> postsPage = postRepository.findAll(updatedPageable);
         return postsPage.map(PostMapper::mapToResponseDto);
     }
 
