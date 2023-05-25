@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog;
+package ovh.major.mybackendapp.domain.blog.logic;
 
 import ovh.major.mybackendapp.domain.blog.dto.ParagraphRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.ParagraphResponseDTO;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class PostMapper {
+class PostMapper {
     public static PostEntity mapFromRequestDto(PostRequestDTO requestDTO) {
 
         List<ParagraphEntity> paragraphEntities = new ArrayList<>();

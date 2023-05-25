@@ -1,9 +1,9 @@
-package ovh.major.mybackendapp.domain.blog;
+package ovh.major.mybackendapp.domain.blog.logic;
 
 import ovh.major.mybackendapp.domain.blog.dto.ParagraphRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.ParagraphResponseDTO;
 
-public class ParagraphMapper {
+class ParagraphMapper {
 
     public static ParagraphEntity mapFromRequestDto(ParagraphRequestDTO requestDTO) {
         return ParagraphEntity.builder()

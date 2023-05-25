@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog;
+package ovh.major.mybackendapp.domain.blog.logic;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

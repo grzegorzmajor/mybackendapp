@@ -1,9 +1,9 @@
-package ovh.major.mybackendapp.domain.blog;
+package ovh.major.mybackendapp.domain.blog.logic;
 
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryResponseDTO;
 
-public class MarkupDictionaryMapper {
+class MarkupDictionaryMapper {
 
     public static MarkupDictionaryEntity mapFromRequestDto(MarkupDictionaryRequestDTO requestDTO) {
         return MarkupDictionaryEntity.builder()
