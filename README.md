@@ -25,8 +25,8 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 >#### Other dependencies 
 >>Jakarta Validation 
 ### Design Patterns and more
->>Builder, Facade, Ports & Adapters
->>SOLID
+>Builder, Facade, Ports & Adapters, 
+>SOLID
 
 ## Project architecture
 
