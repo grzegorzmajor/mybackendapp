@@ -21,7 +21,9 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 >>MariaDB 10.5.8 in docker container, <br> 
 >>Spring Data JPA
 >#### For security
->>Spring Security, JWT, BCrypt, SSL with Self Signed Certificate created in Keytool
+>>Spring Security, JWT,<br>
+>>BCrypt, 
+>>SSL with Self Signed Certificate created in Keytool
 >#### Other dependencies 
 >>Jakarta Validation 
 ### Design Patterns and more
