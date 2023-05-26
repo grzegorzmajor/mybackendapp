@@ -8,7 +8,8 @@ import java.util.List;
 @Builder
 public record PostResponseDTO(
         Integer id,
-        Date addedDate,
+        Date addingDate,
+        Date publicationDate,
         List<ParagraphResponseDTO> paragraphs
 ) {
 }

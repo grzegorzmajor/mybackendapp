@@ -5,6 +5,7 @@ import ovh.major.mybackendapp.domain.blog.dto.ParagraphResponseDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,17 +16,19 @@ class PostMapper {
         List<ParagraphEntity> paragraphEntities = listMapperFromRequestDto(requestDTO.paragraphs());
 
         return PostEntity.builder()
+                .publicationDate(Timestamp.from(requestDTO.publicationDate().toInstant()))
                 .paragraphs(paragraphEntities)
                 .build();
     }
 
-    public static PostResponseDTO mapToResponseDto(PostEntity blogPost) {
+    public static PostResponseDTO mapToResponseDto(PostEntity post) {
 
-        List<ParagraphResponseDTO> paragraphResponse = listMapperToResponseDto(blogPost.getParagraphs());
+        List<ParagraphResponseDTO> paragraphResponse = listMapperToResponseDto(post.getParagraphs());
 
         return PostResponseDTO.builder()
-                .id(blogPost.getId())
-                .addedDate(blogPost.getAddedDate())
+                .id(post.getId())
+                .addingDate(post.getAddingDate())
+                .publicationDate(post.getPublicationDate())
                 .paragraphs(paragraphResponse)
                 .build();
 

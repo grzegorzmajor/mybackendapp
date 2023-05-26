@@ -3,7 +3,7 @@ package ovh.major.mybackendapp.domain.blog.logic;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,13 +19,16 @@ class PostEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotBlank
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp addedDate;
+    private Timestamp addingDate;
+
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp publicationDate;
 
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "paragraph_id")
     private List<ParagraphEntity> paragraphs;
-
 
 }

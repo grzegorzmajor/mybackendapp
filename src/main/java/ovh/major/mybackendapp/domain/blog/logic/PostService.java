@@ -32,7 +32,7 @@ public class PostService {
 
     public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable) {
         Page<PostEntity> postsPage = postRepository.findAll(
-                injectSortMethodAndReturnNewPageableObject(pageable, Sort.Direction.DESC, "addedDate")
+                injectSortMethodAndReturnNewPageableObject(pageable, Sort.Direction.DESC, "addingDate")
         );
         return postsPage.map(PostMapper::mapToResponseDto);
     }
@@ -45,7 +45,7 @@ public class PostService {
                         postEntity.getParagraphs()
                 ));
 
-        postEntity.setAddedDate(new Timestamp(System.currentTimeMillis()));
+        postEntity.setAddingDate(new Timestamp(System.currentTimeMillis()));
 
         return PostMapper.mapToResponseDto(
                 postRepository.save(postEntity)
