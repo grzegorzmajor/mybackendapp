@@ -11,7 +11,7 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 
 ### Environment
 >IntelliJ IDEA Ultimate
-### Language, framework, and more
+### Language, framework and more
 >#### Basic
 >>Java 17, Maven
 >>Spring Boot 3.0
@@ -24,9 +24,14 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 >>Spring Security, JWT, BCrypt, SSL with Self Signed Certificate created in Keytool
 >#### Other dependencies 
 >>Jakarta Validation 
-### Design Paterns and more
+### Design Patterns and more
 >Builder, Facade, Ports & Adapters
 >SOLID
 
 ## Project architecture
 
+### Entities and Dependencies
+
+### Blog
+
+### Login and Security
