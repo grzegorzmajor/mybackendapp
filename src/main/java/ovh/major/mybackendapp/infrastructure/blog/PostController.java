@@ -21,12 +21,6 @@ public class PostController {
 
     BlogFacade blogFacade;
 
-    @GetMapping(params = {"!page", "!size"})
-    public ResponseEntity<List<PostResponseDTO>> findAllForPublicationPosts() {
-        List<PostResponseDTO> allPosts = blogFacade.findAllPosts();
-        return ResponseEntity.ok(allPosts);
-    }
-
     @GetMapping(params = {"page", "size"})
     public ResponseEntity<Page<PostResponseDTO>> findAllForPublicationPostsPageable(Pageable pageable) {
         Page<PostResponseDTO> postsPage = blogFacade.findAllForPublicationPostsPageable(pageable);
