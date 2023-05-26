@@ -22,7 +22,7 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 >>Spring Data JPA
 >#### For security
 >>Spring Security, JWT,<br>
->>BCrypt, 
+>>BCrypt,<br>
 >>SSL with Self Signed Certificate created in Keytool
 >#### Other dependencies 
 >>Jakarta Validation 
