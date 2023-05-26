@@ -14,12 +14,12 @@ class ParagraphMapper {
                 .build();
     }
 
-    public static ParagraphResponseDTO mapToResponseDto(ParagraphEntity blogPostParagraph) {
+    public static ParagraphResponseDTO mapToResponseDto(ParagraphEntity postParagraph) {
         return ParagraphResponseDTO.builder()
-                .id(blogPostParagraph.getId())
-                .paragraphContent(blogPostParagraph.getParagraphContent())
+                .id(postParagraph.getId())
+                .paragraphContent(postParagraph.getParagraphContent())
                 .tag(MarkupDictionaryMapper.mapToResponseDto(
-                        blogPostParagraph.getTag()))
+                        postParagraph.getTag()))
                 .build();
     }
 }

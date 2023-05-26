@@ -13,12 +13,11 @@ class MarkupDictionaryMapper {
                 .build();
     }
 
-    public static MarkupDictionaryResponseDTO mapToResponseDto(MarkupDictionaryEntity blogMarkupDictionary) {
+    public static MarkupDictionaryResponseDTO mapToResponseDto(MarkupDictionaryEntity markupDictionary) {
         return MarkupDictionaryResponseDTO.builder()
-                .id(blogMarkupDictionary.getId())
-                .opening(blogMarkupDictionary.getOpening())
-                .closing(blogMarkupDictionary.getClosing())
+                .id(markupDictionary.getId())
+                .opening(markupDictionary.getOpening())
+                .closing(markupDictionary.getClosing())
                 .build();
     }
-
 }
