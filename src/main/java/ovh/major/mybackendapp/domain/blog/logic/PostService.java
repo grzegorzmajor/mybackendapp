@@ -30,11 +30,23 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable) {
-        Page<PostEntity> postsPage = postRepository.findAll(
-                injectSortMethodAndReturnNewPageableObject(pageable, Sort.Direction.DESC, "addingDate")
+    public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable, boolean isForPublication) {
+        Page<PostEntity> postsPage;
+        Pageable updatedPageable = injectSortMethodAndReturnNewPageableObject(
+                pageable,
+                Sort.Direction.DESC,
+                "addingDate"
         );
+        if (isForPublication) {
+            postsPage = postRepository.findAllWithPublicationDateTest(
+                    new Timestamp(System.currentTimeMillis()),
+                    updatedPageable
+            );
+        } else {
+            postsPage = postRepository.findAll(updatedPageable);
+        }
         return postsPage.map(PostMapper::mapToResponseDto);
+
     }
 
     public PostResponseDTO savePost(PostRequestDTO requestDTO) {

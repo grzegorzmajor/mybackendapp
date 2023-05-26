@@ -45,7 +45,11 @@ public class BlogFacade {
     }
 
     public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable) {
-        return postService.findAllPostsPageable(pageable);
+        return postService.findAllPostsPageable(pageable, false);
+    }
+
+    public Page<PostResponseDTO> findAllForPublicationPostsPageable(Pageable pageable) {
+        return postService.findAllPostsPageable(pageable, true);
     }
 
     public PostResponseDTO savePost(PostRequestDTO requestDTO) {

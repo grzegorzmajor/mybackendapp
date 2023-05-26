@@ -22,13 +22,18 @@ public class PostController {
     BlogFacade blogFacade;
 
     @GetMapping(params = {"!page", "!size"})
-    public ResponseEntity<List<PostResponseDTO>> findAllPosts() {
+    public ResponseEntity<List<PostResponseDTO>> findAllForPublicationPosts() {
         List<PostResponseDTO> allPosts = blogFacade.findAllPosts();
         return ResponseEntity.ok(allPosts);
     }
 
     @GetMapping(params = {"page", "size"})
-    public ResponseEntity<Page<PostResponseDTO>> findAllPostsPageable(Pageable pageable) {
+    public ResponseEntity<Page<PostResponseDTO>> findAllForPublicationPostsPageable(Pageable pageable) {
+        Page<PostResponseDTO> postsPage = blogFacade.findAllForPublicationPostsPageable(pageable);
+        return ResponseEntity.ok(postsPage);
+    }
+    @GetMapping(value="/with-unpublished", params = {"page", "size"})
+    public ResponseEntity<Page<PostResponseDTO>> findAllFPostsPageable(Pageable pageable) {
         Page<PostResponseDTO> postsPage = blogFacade.findAllPostsPageable(pageable);
         return ResponseEntity.ok(postsPage);
     }
