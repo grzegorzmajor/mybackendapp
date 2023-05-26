@@ -12,7 +12,7 @@ class BlogFacadeConfiguration {
     @Bean
     BlogFacade blogFacade(PostService postService,
                           ParagraphService paragraphService,
-                          MarkupDictionaryService markupDictionaryService){
+                          MarkupDictionaryService markupDictionaryService) {
         return new BlogFacade(postService, paragraphService, markupDictionaryService);
     }
 

@@ -4,7 +4,8 @@ import lombok.Builder;
 
 @Builder
 public record MarkupDictionaryResponseDTO(
-    Integer id,
-    String opening,
-    String closing
-) {}
+        Integer id,
+        String opening,
+        String closing
+) {
+}

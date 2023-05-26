@@ -23,9 +23,10 @@ public class PostController {
 
     @GetMapping(params = {"!page", "!size"})
     public ResponseEntity<List<PostResponseDTO>> findAllPosts() {
-        List<PostResponseDTO> allPosts = blogFacade.findAllPosts() ;
+        List<PostResponseDTO> allPosts = blogFacade.findAllPosts();
         return ResponseEntity.ok(allPosts);
     }
+
     @GetMapping(params = {"page", "size"})
     public ResponseEntity<Page<PostResponseDTO>> findAllPostsPageable(Pageable pageable) {
         Page<PostResponseDTO> postsPage = blogFacade.findAllPostsPageable(pageable);
@@ -34,7 +35,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<PostResponseDTO> addMarkup(@RequestBody PostRequestDTO requestDTO) {
-        PostResponseDTO responseDTO = blogFacade.savePost(requestDTO) ;
+        PostResponseDTO responseDTO = blogFacade.savePost(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 

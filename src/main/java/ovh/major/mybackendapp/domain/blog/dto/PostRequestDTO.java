@@ -5,4 +5,5 @@ import java.util.List;
 public record PostRequestDTO(
         Integer id,
         List<ParagraphRequestDTO> paragraphs
-){}
+) {
+}

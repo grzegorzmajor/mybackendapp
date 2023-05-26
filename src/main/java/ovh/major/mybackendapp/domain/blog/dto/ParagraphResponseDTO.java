@@ -4,8 +4,8 @@ import lombok.Builder;
 
 @Builder
 public record ParagraphResponseDTO(
-    Integer id,
-    MarkupDictionaryResponseDTO tag,
-    String paragraphContent
+        Integer id,
+        MarkupDictionaryResponseDTO tag,
+        String paragraphContent
 ) {
 }

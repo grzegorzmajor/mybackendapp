@@ -13,6 +13,7 @@ class ParagraphMapper {
                         requestDTO.tag()))
                 .build();
     }
+
     public static ParagraphResponseDTO mapToResponseDto(ParagraphEntity blogPostParagraph) {
         return ParagraphResponseDTO.builder()
                 .id(blogPostParagraph.getId())

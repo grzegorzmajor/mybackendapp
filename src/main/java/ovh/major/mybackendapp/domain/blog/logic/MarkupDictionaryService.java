@@ -16,7 +16,7 @@ public class MarkupDictionaryService {
     private final MarkupDictionaryRepository markupDictionaryRepository;
 
     public List<MarkupDictionaryResponseDTO> findAllMarkups() {
-        List<MarkupDictionaryEntity> markups = StreamSupport.stream( markupDictionaryRepository.findAll().spliterator(), false)
+        List<MarkupDictionaryEntity> markups = StreamSupport.stream(markupDictionaryRepository.findAll().spliterator(), false)
                 .toList();
         return markups.stream()
                 .map(MarkupDictionaryMapper::mapToResponseDto)

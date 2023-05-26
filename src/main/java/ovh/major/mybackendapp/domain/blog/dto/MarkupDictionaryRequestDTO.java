@@ -4,4 +4,5 @@ public record MarkupDictionaryRequestDTO(
         Integer id,
         String opening,
         String closing
-) {}
+) {
+}

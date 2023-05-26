@@ -56,7 +56,7 @@ public class SecurityConfig {
                 ).permitAll()
                 .requestMatchers(HttpMethod.GET,
                         "/posts"
-                        ).permitAll()
+                ).permitAll()
                 .anyRequest().authenticated()
                 .and().headers().frameOptions().disable()
                 .and().httpBasic().disable()

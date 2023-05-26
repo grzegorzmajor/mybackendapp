@@ -4,6 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record UserRequestDTO(
-    String name,
-    String password
-){}
+        String name,
+        String password
+) {
+}

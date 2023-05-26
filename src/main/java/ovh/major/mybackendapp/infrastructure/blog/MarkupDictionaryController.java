@@ -20,12 +20,13 @@ public class MarkupDictionaryController {
 
     @GetMapping
     public ResponseEntity<List<MarkupDictionaryResponseDTO>> findAllMarkups() {
-        List<MarkupDictionaryResponseDTO> allMarkups = blogFacade.findAllMarkups() ;
+        List<MarkupDictionaryResponseDTO> allMarkups = blogFacade.findAllMarkups();
         return ResponseEntity.ok(allMarkups);
     }
+
     @PostMapping
     public ResponseEntity<MarkupDictionaryResponseDTO> addMarkup(@RequestBody MarkupDictionaryRequestDTO requestDTO) {
-        MarkupDictionaryResponseDTO responseDTO = blogFacade.saveMarkup(requestDTO) ;
+        MarkupDictionaryResponseDTO responseDTO = blogFacade.saveMarkup(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 

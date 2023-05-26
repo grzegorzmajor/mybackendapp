@@ -12,10 +12,10 @@ public record SingleUser(
 
         String hashedPassword
 ) {
-        public SingleUser(@Value("${app_user.name}") String name, @Value("${app_user.hashedPassword}") String hashedPassword) {
-                log.info("User " + name + " pass " + hashedPassword );
-                this.name = name;
-                this.hashedPassword = hashedPassword;
-        }
+    public SingleUser(@Value("${app_user.name}") String name, @Value("${app_user.hashedPassword}") String hashedPassword) {
+        log.info("User " + name + " pass " + hashedPassword);
+        this.name = name;
+        this.hashedPassword = hashedPassword;
+    }
 }
 

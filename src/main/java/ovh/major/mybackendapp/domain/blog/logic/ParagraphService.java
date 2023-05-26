@@ -16,21 +16,21 @@ public class ParagraphService {
 
         ParagraphEntity responseFromDatabaseParagraphEntity = paragraphRepository.findFirstById(requestDTO.id());
 
-        ParagraphEntity postParagraphEntity = ParagraphMapper.mapFromRequestDto( requestDTO );
+        ParagraphEntity postParagraphEntity = ParagraphMapper.mapFromRequestDto(requestDTO);
 
         responseFromDatabaseParagraphEntity.setTag(postParagraphEntity.getTag());
         responseFromDatabaseParagraphEntity.setParagraphContent(postParagraphEntity.getParagraphContent());
 
-        MarkupDictionaryEntity responseFromDatabaseMarkupDictionaryEntity = markupDictionaryRepository.findFirstByOpening(responseFromDatabaseParagraphEntity.getTag().getOpening());
+        MarkupDictionaryEntity responseFromDatabaseMarkupDictionaryEntity =
+                markupDictionaryRepository.findFirstByOpening(responseFromDatabaseParagraphEntity.getTag().getOpening());
 
         responseFromDatabaseParagraphEntity.setTag(responseFromDatabaseMarkupDictionaryEntity);
 
         return ParagraphMapper.mapToResponseDto(paragraphRepository.save(responseFromDatabaseParagraphEntity));
-
     }
 
     public ParagraphResponseDTO getParagraph(String id) {
-        return ParagraphMapper.mapToResponseDto( paragraphRepository.findFirstById(Integer.parseInt(id)));
+        return ParagraphMapper.mapToResponseDto(paragraphRepository.findFirstById(Integer.parseInt(id)));
     }
 
 }
