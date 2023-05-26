@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Log4j2
 @AllArgsConstructor
@@ -21,14 +20,6 @@ public class PostService {
 
     private final MarkupDictionaryRepository markupDictionaryRepository;
     private final PostRepository postRepository;
-
-    public List<PostResponseDTO> findAllPosts() {
-        List<PostEntity> markups = postRepository.findAll().stream()
-                .toList();
-        return markups.stream()
-                .map(PostMapper::mapToResponseDto)
-                .collect(Collectors.toList());
-    }
 
     public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable, boolean isForPublication) {
         Page<PostEntity> postsPage;
