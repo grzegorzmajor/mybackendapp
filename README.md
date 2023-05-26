@@ -13,12 +13,12 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 >IntelliJ IDEA Ultimate
 ### Language, framework and more
 >#### Basic
->>Java 17, Maven
->>Spring Boot 3.0
->>Docker, Docker Compose
->>Postman for manual testing 
+>>Java 17, Maven, 
+>>Spring Boot 3.0, 
+>>Docker, Docker Compose, 
+>>Postman for manual testing, 
 >#### Database
->>MariaDB 10.5.8 in docker container
+>>MariaDB 10.5.8 in docker container,  
 >>Spring Data JPA
 >#### For security
 >>Spring Security, JWT, BCrypt, SSL with Self Signed Certificate created in Keytool
