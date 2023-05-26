@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import ovh.major.mybackendapp.domain.blog.dto.PostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     public List<PostResponseDTO> findAllPosts() {
-        List<PostEntity> markups = StreamSupport.stream( postRepository.findAll().spliterator(), false)
+        List<PostEntity> markups = StreamSupport.stream(postRepository.findAll().spliterator(), false)
                 .toList();
         return markups.stream()
                 .map(PostMapper::mapToResponseDto)
@@ -30,23 +31,21 @@ public class PostService {
     }
 
     public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable) {
-        Sort additionalSort = Sort.by(Sort.Direction.DESC,"addedDate" );
-        Sort currentSort = pageable.getSort();
-        Sort mergedSort = currentSort.and(additionalSort);
-        Pageable updatedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), mergedSort);
-        Page<PostEntity> postsPage = postRepository.findAll(updatedPageable);
+        Page<PostEntity> postsPage = postRepository.findAll(
+                injectSortMethodAndReturnNewPageableObject(pageable, Sort.Direction.DESC, "addedDate")
+        );
         return postsPage.map(PostMapper::mapToResponseDto);
     }
 
     public PostResponseDTO savePost(PostRequestDTO requestDTO) {
-        PostEntity postEntity =  PostMapper.mapFromRequestDto(requestDTO);
+        PostEntity postEntity = PostMapper.mapFromRequestDto(requestDTO);
 
         postEntity.setParagraphs(
                 findAndReturnParagraphListWithThemWhenExistInRepository(
                         postEntity.getParagraphs()
                 ));
 
-        postEntity.setAddedDate( new Timestamp( System.currentTimeMillis() ));
+        postEntity.setAddedDate(new Timestamp(System.currentTimeMillis()));
 
         return PostMapper.mapToResponseDto(
                 postRepository.save(postEntity)
@@ -58,8 +57,16 @@ public class PostService {
                 .map(paragraph -> {
                     MarkupDictionaryEntity responseFromDatabaseTagEntity = markupDictionaryRepository.findFirstByOpening(
                             paragraph.getTag().getOpening());
-                    if ( (responseFromDatabaseTagEntity != null) && ( responseFromDatabaseTagEntity.getId() > 0 ))  paragraph.setTag(responseFromDatabaseTagEntity);
+                    if ((responseFromDatabaseTagEntity != null) && (responseFromDatabaseTagEntity.getId() > 0))
+                        paragraph.setTag(responseFromDatabaseTagEntity);
                     return paragraph;
                 }).toList();
+    }
+
+    private Pageable injectSortMethodAndReturnNewPageableObject(@NotNull Pageable pageable, @NotNull Sort.Direction direction, @NotNull String... properties) {
+        Sort additionalSort = Sort.by(direction, properties);
+        Sort currentSort = pageable.getSort();
+        Sort mergedSort = currentSort.and(additionalSort);
+        return PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), mergedSort);
     }
 }

@@ -5,7 +5,6 @@ import ovh.major.mybackendapp.domain.blog.dto.ParagraphResponseDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,20 +12,16 @@ import java.util.stream.Collectors;
 class PostMapper {
     public static PostEntity mapFromRequestDto(PostRequestDTO requestDTO) {
 
-        List<ParagraphEntity> paragraphEntities = new ArrayList<>();
-
-        paragraphEntities = listMapperFromRequestDto(requestDTO.paragraphs());
+        List<ParagraphEntity> paragraphEntities = listMapperFromRequestDto(requestDTO.paragraphs());
 
         return PostEntity.builder()
-
                 .paragraphs(paragraphEntities)
                 .build();
     }
+
     public static PostResponseDTO mapToResponseDto(PostEntity blogPost) {
 
-        List<ParagraphResponseDTO> paragraphResponse = new ArrayList<>();
-
-        paragraphResponse = listMapperToResponseDto(blogPost.getParagraphs());
+        List<ParagraphResponseDTO> paragraphResponse = listMapperToResponseDto(blogPost.getParagraphs());
 
         return PostResponseDTO.builder()
                 .id(blogPost.getId())
@@ -36,19 +31,15 @@ class PostMapper {
 
     }
 
-    private static List<ParagraphEntity> listMapperFromRequestDto(List<ParagraphRequestDTO> request ) {
+    private static List<ParagraphEntity> listMapperFromRequestDto(List<ParagraphRequestDTO> request) {
         return request.stream()
-                .map( paragraph -> {
-                    return ParagraphMapper.mapFromRequestDto(paragraph);
-                } )
+                .map(ParagraphMapper::mapFromRequestDto)
                 .collect(Collectors.toList());
     }
 
-    private static List<ParagraphResponseDTO> listMapperToResponseDto(List<ParagraphEntity> entity ) {
+    private static List<ParagraphResponseDTO> listMapperToResponseDto(List<ParagraphEntity> entity) {
         return entity.stream()
-                .map( paragraph -> {
-                    return ParagraphMapper.mapToResponseDto(paragraph);
-                } )
+                .map(ParagraphMapper::mapToResponseDto)
                 .collect(Collectors.toList());
     }
 }
