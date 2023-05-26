@@ -18,7 +18,7 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 >>Docker, Docker Compose, <br> 
 >>Postman for manual testing 
 >#### Database
->>MariaDB 10.5.8 in docker container, <br>  
+>>MariaDB 10.5.8 in docker container, <br> 
 >>Spring Data JPA
 >#### For security
 >>Spring Security, JWT, BCrypt, SSL with Self Signed Certificate created in Keytool
