@@ -12,7 +12,6 @@ import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Log4j2
 @AllArgsConstructor
