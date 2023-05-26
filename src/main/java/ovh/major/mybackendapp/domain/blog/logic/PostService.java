@@ -63,7 +63,9 @@ public class PostService {
                 }).toList();
     }
 
-    private Pageable injectSortMethodAndReturnNewPageableObject(@NotNull Pageable pageable, @NotNull Sort.Direction direction, @NotNull String... properties) {
+    private Pageable injectSortMethodAndReturnNewPageableObject(@NotNull Pageable pageable,
+                                                                @NotNull Sort.Direction direction,
+                                                                @NotNull String... properties) {
         Sort additionalSort = Sort.by(direction, properties);
         Sort currentSort = pageable.getSort();
         Sort mergedSort = currentSort.and(additionalSort);
