@@ -23,7 +23,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     public List<PostResponseDTO> findAllPosts() {
-        List<PostEntity> markups = StreamSupport.stream(postRepository.findAll().spliterator(), false)
+        List<PostEntity> markups = postRepository.findAll().stream()
                 .toList();
         return markups.stream()
                 .map(PostMapper::mapToResponseDto)
