@@ -40,10 +40,6 @@ public class BlogFacade {
         return paragraphService.getParagraph(id);
     }
 
-    public List<PostResponseDTO> findAllPosts() {
-        return postService.findAllPosts();
-    }
-
     public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable) {
         return postService.findAllPostsPageable(pageable, false);
     }
