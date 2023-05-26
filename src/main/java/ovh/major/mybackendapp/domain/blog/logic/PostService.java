@@ -19,7 +19,6 @@ import java.util.stream.StreamSupport;
 public class PostService {
 
     private final MarkupDictionaryRepository markupDictionaryRepository;
-    private final ParagraphRepository paragraphRepository;
     private final PostRepository postRepository;
 
     public List<PostResponseDTO> findAllPosts() {

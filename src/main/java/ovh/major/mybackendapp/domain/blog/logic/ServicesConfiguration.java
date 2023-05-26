@@ -19,8 +19,7 @@ class ServicesConfiguration {
 
     @Bean
     PostService postService(MarkupDictionaryRepository markupDictionaryRepository,
-                            ParagraphRepository paragraphRepository,
                             PostRepository postRepository) {
-        return new PostService(markupDictionaryRepository,paragraphRepository, postRepository);
+        return new PostService(markupDictionaryRepository, postRepository);
     }
 }
