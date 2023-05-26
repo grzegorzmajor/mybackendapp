@@ -11,8 +11,6 @@ import ovh.major.mybackendapp.domain.blog.BlogFacade;
 import ovh.major.mybackendapp.domain.blog.dto.PostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
 
-import java.util.List;
-
 @RestController
 @Log4j2
 @AllArgsConstructor
