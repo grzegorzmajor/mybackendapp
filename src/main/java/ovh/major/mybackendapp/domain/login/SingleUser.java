@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Log4j2
-public record SingleUser(
+record SingleUser(
 
         String name,
 
