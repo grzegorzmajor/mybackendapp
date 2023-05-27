@@ -1,5 +1,4 @@
 # My Backend App
-
 ## Introduction
 ### First
 This project was started as a backend for my website.
@@ -31,9 +30,32 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 >SOLID
 
 ## Project architecture
+### Domain Modules
+#### Entities and his dependencies
+<img src="readmeimages/entities.png">
 
-### Entities and Dependencies
+#### Blog
+<img src="readmeimages/blog.png">
 
-### Blog
+#### Login
+<img src="readmeimages/login.png">
 
-### Login and Security
+### Infrastructure
+<img src="readmeimages/i1.png">
+Security
+<img src="readmeimages/i2.png">
+
+## HTTP Methods
+
+| METHOD  | URL                     | PAGINATION | AUTHENTICATION | DESCRIPTION                           | 
+|---------|-------------------------|------------|----------------|---------------------------------------|
+| GET     | /posts                  | yes        | no needed      | returning posts without unpublished   | 
+| GET     | /posts/with-unpublished | yes        | needed         | returning posts with unpublished      |
+| POST    | /posts                  | n/d        | needed         | adding new post                       |
+| GET     | /paragraphs/{id}        | n/d        | needed         | returning paragraph with specified id |
+| PATCH   | /paragraphs             | n/d        | needed         | update paragraf                       |
+| GET     | /dict                   | n/d        | needed         | returning all markups                 |
+| PATCH   | /dict                   | n/d        | needed         | add markup                            |
+| PATCH   | /dict/{id}              | n/d        | needed         | delete markup                         |
+
+## How to install project
