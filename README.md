@@ -4,7 +4,7 @@
 This project was launched as a backend for my website.
 I wanted to build my portfolio.
 Instead of creating Docker containers from ready-mades. I decided to write the backend for my site myself in Java, gaining experience in the topics I've been learning for the last few months. By the way, it will be a good part of my portfolio.
-I wanted to understand the code I write well, so I put off writing tests for later, so as not to disturb the dependencies between classes, packages, etc. I wanted to focus on Spring, JPA, entities and dependencies. In the first phase, I limited the tests to manual ones using Postman.
+I wanted to understand the code I'm writing well, so I put off writing tests for later, so as not to interfere with understanding the dependencies between classes, packages, etc. I wanted to focus on Spring, JPA, entities and dependencies. In the first phase, I limited the tests to manual ones using Postman.
 
 ## Technologies used
 
