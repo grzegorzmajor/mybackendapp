@@ -32,18 +32,18 @@ I wanted to understand the code I'm writing well, so I put off writing tests for
 ## Project architecture
 ### Domain Modules
 #### Entities and his dependencies
-<img src="readmeimages/entities.png">
+<img src="readmeimages/entities.png" alt="entities schema">
 
 #### Blog
-<img src="readmeimages/blog.png">
+<img src="readmeimages/blog.png" alt="blog module schema">
 
 #### Login
-<img src="readmeimages/login.png">
+<img src="readmeimages/login.png" alt="login module schema">
 
 ### Infrastructure
-<img src="readmeimages/i1.png">
+<img src="readmeimages/i1.png" alt="main functionality schema">
 Security
-<img src="readmeimages/i2.png">
+<img src="readmeimages/i2.png"  alt="security schema">
 
 ## HTTP Methods
 
