@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   maria_db:
+    container_name: maria_db
     image: "mariadb:10.5.8"
     restart: always
     ports:
@@ -10,3 +11,23 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASS}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+
+  mybackendapp:
+    container_name: mybackendapp
+    #build: .
+    image: mybackendapp
+    restart: always
+    ports:
+      - "1000:443"
+    environment:
+      DB_HOST: maria_db
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      X_USER_NAME: ${X_USER_NAME}
+      HASHED_PASS: ${HASHED_PASS}
+      JWT_SECRET: ${JWT_SECRET}
+      KEY_STORE_ALIAS: ${KEY_STORE_ALIAS}
+      KEY_STORE_LOCATION: ${KEY_STORE_LOCATION}
+      KEY_STORE_PASS: ${KEY_STORE_PASS}
