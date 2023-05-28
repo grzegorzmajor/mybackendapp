@@ -17,7 +17,7 @@ components:
 
 server:
   ssl:
-    key-store: ${KEY_STORE_URL}
+    key-store: ${KEY_STORE_LOCATION}
     key-store-password: ${KEY_STORE_PASS}
     key-password: ${KEY_STORE_PASS}
     key-store-type: PKCS12
