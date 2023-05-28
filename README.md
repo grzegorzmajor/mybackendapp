@@ -60,7 +60,6 @@ Security
 | PATCH  | /dict/{id}              | no          | needed         | delete markup                         |
 
 ## How to run the project in IntelliJ - every commit
-
 >If you want to run the project in IntelliJ, you must first download it from GitHub to your environment.
 >
 >Secondly, you need to generate a Self-Signed Certificate yourself. It should be fully packed into a .P12 file - PKCS12 format.<br>
@@ -68,7 +67,7 @@ Security
 >I refer to the tutorial: https://www.baeldung.com/spring-boot-https-self-signed-certificate
 
 >Thirdly, in order to run the project, you must have the environment variables set:
->>* DB_HOST=
+>>* DB_HOST=localhost
 >>* DB_NAME=
 >>* DB_PASS=
 >>* DB_ROOT_PASS=
@@ -107,5 +106,20 @@ Security
 >All others in the table above after logging in and setting the token (Bearer Token authorization in Postman) 
 >
 ## How to install an application in docker containers
+>Download this project from GitHub to your environment.<br>
+> 
+>Select the Branch marked with the version you want and load the commit related to it.<br>
+>There is one right now, but there will be more.<br>
+> 
 >Use the section above, generate a self-signed certificate and encode the password<br>
+>Read about environment variables in the section above.<br>
+> 
+>Since I use Windows, I'll explain using Windows PowerShell.<br>
+>I assume you already know everything about environment variables.
+>
+>Now set environment variables for Maven Runner to.<br>
+>Click: Maven tab -> wrench icon -> Maven Settings.<br>
+>Then open: Build, Execution, Deployment -> Build Tools -> Maven -> Runner<br>
+>and set environment variables there.
+>
 >
