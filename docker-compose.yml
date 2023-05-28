@@ -6,7 +6,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: major_backend
-      MYSQL_USER: majorek
-      MYSQL_PASSWORD: testowehaslo1
-      MYSQL_ROOT_PASSWORD: testowehaslo2
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
