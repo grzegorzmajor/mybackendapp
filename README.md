@@ -1,10 +1,10 @@
 # My Backend App
 ## Introduction
 ### First
-This project was started as a backend for my website.
-I needed to build my portfolio.
-Instead of creating some Docker containers with prefabs, I decided to write the backend for my website myself in Java, gaining experience in the topics I've been learning for the last few months.
-I wanted to understand what I was writing, so I put off writing tests for later. I wanted to focus on Spring, JPA and dependencies between entities. In the first phase, I limited the tests to manual ones using Postman.
+This project was launched as a backend for my website.
+I wanted to build my portfolio.
+Instead of creating Docker containers from ready-mades, I decided to write the backend for my Java site myself, gaining experience in the topics I've been learning for the last few months. By the way, it will be a good part of my portfolio.
+I wanted to understand and consolidate the code I write well, so I put off writing tests for later, so as not to disturb the dependencies between classes, packages, etc. I wanted to focus on Spring, JPA and entities and dependencies. In the first phase, I limited the tests to manual ones using Postman.
 
 ## Technologies used
 
@@ -12,22 +12,22 @@ I wanted to understand what I was writing, so I put off writing tests for later.
 >IntelliJ IDEA Ultimate
 ### Language, framework and more
 >#### Basic
->>Java 17, Maven, <br>
->>Spring Boot 3.0, <br>
->>Docker, Docker Compose, <br> 
->>Postman for manual testing 
+>* Java 17, Maven,
+>* Spring Boot 3.0,
+>* Docker, Docker Compose,
+>* Postman for manual testing 
 >#### Database
->>MariaDB 10.5.8 in docker container, <br> 
->>Spring Data JPA
+>* MariaDB 10.5.8 in docker container 
+>* Spring Data JPA
 >#### For security
->>Spring Security, JWT,<br>
->>BCrypt,<br>
->>SSL with Self Signed Certificate created in Keytool
+>* Spring Security, JWT,<br>
+>* BCrypt,<br>
+>* SSL with Self Signed Certificate created in Keytool
 >#### Other dependencies 
->>Jakarta Validation 
+>* Jakarta Validation 
 ### Design Patterns and more
->Builder, Facade, Ports & Adapters, <br> 
->SOLID
+* Builder, Facade, Ports & Adapters, <br> 
+* SOLID
 
 ## Project architecture
 ### Domain Modules
@@ -53,9 +53,11 @@ Security
 | GET     | /posts/with-unpublished | yes        | needed         | returning posts with unpublished      |
 | POST    | /posts                  | n/d        | needed         | adding new post                       |
 | GET     | /paragraphs/{id}        | n/d        | needed         | returning paragraph with specified id |
-| PATCH   | /paragraphs             | n/d        | needed         | update paragraf                       |
+| PATCH   | /paragraphs             | n/d        | needed         | update paragraph                      |
 | GET     | /dict                   | n/d        | needed         | returning all markups                 |
 | PATCH   | /dict                   | n/d        | needed         | add markup                            |
 | PATCH   | /dict/{id}              | n/d        | needed         | delete markup                         |
 
 ## How to install project
+
+
