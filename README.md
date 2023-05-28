@@ -58,6 +58,35 @@ Security
 | PATCH   | /dict                   | n/d        | needed         | add markup                            |
 | PATCH   | /dict/{id}              | n/d        | needed         | delete markup                         |
 
-## How to install project
+## How to use the project
 
-
+>If you want to use this project, you must first download it from GitHub to your environment. I use IntelliJ IDEA Ultimate. :) 
+> 
+>Select Branch marked with the version you are interested in. There is currently only one version! :) But there will be more. I will add changes to this file.
+> 
+>Secondly, you need to generate a Self Signed Certificate yourself. It should be fully packed into a .P12 file.<br>
+>Use the keytool that comes with the Java JDK<br>
+>I refer to the tutorial: https://www.baeldung.com/spring-boot-https-self-signed-certificate
+>
+>Thirdly, in order to run the project, you must have the environment variables set:
+>* DB_HOST=
+>* DB_NAME=
+>* DB_PASS=
+>* DB_USER=
+>
+>* X_USER_NAME=
+>* HASHED_PASS=
+>
+>* JWT_SECRET=
+> 
+>* KEY_STORE_ALIAS=
+>* KEY_STORE_PASS=
+>* KEY_STORE_LOCATION=
+>
+>Take a look at the application.yml file - this will help you understand the meaning of environment variables.<br>
+>These variables concern access to the MariaDB database, secret password for generating tokens by JWT, certificate data for SSL.
+> 
+>X_USER_NAME and HASHED_PASS are the data of the application user - these data will be used for logging in. This is a single user application, and it would be a waste of time to create a table with login data in the database.<br>
+>So set these environment variables - your username, then use some tool to encrypt your password with the bCrypt algorithm  and assign the generated string to the variable.<br>
+>You can use for example: https://bcrypt-generator.com/
+> 
