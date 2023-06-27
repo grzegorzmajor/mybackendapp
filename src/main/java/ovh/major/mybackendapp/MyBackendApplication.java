@@ -2,10 +2,11 @@ package ovh.major.mybackendapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import ovh.major.mybackendapp.infrastructure.security.jwt.JwtConfigurationProperties;
 
-@SpringBootApplication
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 @EnableConfigurationProperties(value = {JwtConfigurationProperties.class})
 public class MyBackendApplication {
 
