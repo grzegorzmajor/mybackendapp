@@ -17,7 +17,7 @@ class ParagraphEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotBlank
     @JoinColumn(name = "dictionary_id")
     private MarkupDictionaryEntity tag;
