@@ -27,7 +27,7 @@ class PostEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp publicationDate;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     @JoinColumn(name = "paragraph_id")
     private List<ParagraphEntity> paragraphs;
 
