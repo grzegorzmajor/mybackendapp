@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 
 networks:
   mybackendcontainers:
@@ -13,8 +13,6 @@ services:
     hostname: mariadb
     networks:
       - mybackendcontainers
-#    ports:
-#      - "3306:3306"
     environment:
       MYSQL_DATABASE: majorbackend
       MYSQL_USER: majorek
@@ -25,7 +23,7 @@ services:
     container_name: mybackendapp
 #    build: .
     image: mybackendapp-mybackendapp
-#    restart: always
+    restart: always
     ports:
       - "1000:443"
     networks:
@@ -42,6 +40,5 @@ services:
       HASHED_PASS: "$2a$06$6WVrmNTsLz/URgtb0RVXIueLNx9u.PABjntEGjkkVmpXxwnx7VS5m"
       JWT_SECRET: dupajasiu
       KEY_STORE_ALIAS: major.ovh
-#      KEY_STORE_LOCATION: src/main/resources/keystore/major.p12
-      KEY_STORE_LOCATION: classpath:major.p12
+      KEY_STORE_LOCATION: classpath:keystore/major.p12
       KEY_STORE_PASS: 127Sfgt
