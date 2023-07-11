@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 import ovh.major.mybackendapp.domain.blog.dto.PostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
 
@@ -39,6 +40,7 @@ public class PostService {
 
     }
 
+    @Transactional
     public PostResponseDTO savePost(PostRequestDTO requestDTO) {
         PostEntity postEntity = PostMapper.mapFromRequestDto(requestDTO);
 
@@ -56,12 +58,12 @@ public class PostService {
 
     private List<ParagraphEntity> findAndReturnParagraphListWithThemWhenExistInRepository(List<ParagraphEntity> paragraphEntities) {
         return paragraphEntities.stream()
-                .map(paragraph -> {
+                .peek(paragraph -> {
                     MarkupDictionaryEntity responseFromDatabaseTagEntity = markupDictionaryRepository.findFirstByOpening(
                             paragraph.getTag().getOpening());
-                    if ((responseFromDatabaseTagEntity != null) && (responseFromDatabaseTagEntity.getId() > 0))
+                    if (responseFromDatabaseTagEntity.getId() > 0) {
                         paragraph.setTag(responseFromDatabaseTagEntity);
-                    return paragraph;
+                    }
                 }).toList();
     }
 
