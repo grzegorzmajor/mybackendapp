@@ -30,7 +30,7 @@ public class MarkupDictionaryController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    @PostMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteMarkup(@RequestBody @PathVariable String id) {
         try {
             blogFacade.deleteMarkup(id);
