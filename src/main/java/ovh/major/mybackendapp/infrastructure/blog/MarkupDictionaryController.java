@@ -35,7 +35,7 @@ public class MarkupDictionaryController {
         try {
             blogFacade.deleteMarkup(id);
         } catch (Exception e) {
-            log.error("Exception in POST method - deleteMarkup: " + e.getMessage());
+            log.error("Exception in DELETE method - deleteMarkup: " + e.getMessage());
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
