@@ -2,12 +2,15 @@ package ovh.major.mybackendapp.infrastructure.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ovh.major.mybackendapp.domain.blog.BlogFacade;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryResponseDTO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -34,6 +37,9 @@ public class MarkupDictionaryController {
     public ResponseEntity deleteMarkup(@RequestBody @PathVariable String id) {
         try {
             blogFacade.deleteMarkup(id);
+        } catch (DataAccessException e){
+            log.error("DELETING NOT POSSIBLE FOR SOME REASON");
+            return ResponseEntity.status(HttpStatusCode.valueOf(418)).build();
         } catch (Exception e) {
             log.error("Exception in DELETE method - deleteMarkup: " + e.getMessage());
             return ResponseEntity.notFound().build();
