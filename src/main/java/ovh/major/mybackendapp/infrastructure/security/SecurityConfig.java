@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ovh.major.mybackendapp.domain.login.LoginFacade;
 import ovh.major.mybackendapp.infrastructure.security.jwt.JwtAuthTokenFilter;
 
-
 @Configuration
 @AllArgsConstructor
 public class SecurityConfig {
@@ -40,29 +39,27 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable();
-        httpSecurity.authorizeHttpRequests()
+        httpSecurity.csrf(csrf -> csrf.disable());
+        httpSecurity.authorizeHttpRequests( request -> request
                 .requestMatchers(
-//                        "/swagger-ui/**",
-//                        "/swagger-ui.html",
                         "/api/auth/**",
-//                        "/v3/api-docs.yaml",
-//                        "/v3/api-docs/**",
-//                        "/v3/api-docs",
-//                        "/v3/api-docs/swagger-config",
                         "/webjars/**",
                         "/login/**"
-//                        "/swagger-resources/**"
-                ).permitAll()
+                    ).permitAll()
                 .requestMatchers(HttpMethod.GET,
                         "/posts"
                 ).permitAll()
                 .anyRequest().authenticated()
-                .and().headers().frameOptions().disable()
-                .and().httpBasic().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().exceptionHandling()
-                .and().addFilterBefore(jwtAuthTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        );
+        httpSecurity.headers(header -> header
+                .frameOptions( frameOptions -> frameOptions.disable())
+        );
+        httpSecurity.httpBasic(http -> http.disable());
+        httpSecurity.sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
+        httpSecurity.exceptionHandling();
+        httpSecurity.addFilterBefore(jwtAuthTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
