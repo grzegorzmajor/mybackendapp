@@ -20,6 +20,10 @@ public class PostController {
     BlogFacade blogFacade;
 
     @GetMapping(params = {"page", "size"})
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.GET
+    )
     public ResponseEntity<Page<PostResponseDTO>> findAllForPublicationPostsPageable(Pageable pageable) {
         Page<PostResponseDTO> postsPage = blogFacade.findAllForPublicationPostsPageable(pageable);
         return ResponseEntity.ok(postsPage);
