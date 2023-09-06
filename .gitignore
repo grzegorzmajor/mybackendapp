@@ -36,3 +36,4 @@ build/
 /.
 /pom.xml.old
 /envset.ps1
+/src/main/resources/keystore/major.pem
