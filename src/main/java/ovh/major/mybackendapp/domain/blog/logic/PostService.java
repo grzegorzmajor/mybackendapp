@@ -21,6 +21,7 @@ public class PostService {
     private final MarkupDictionaryRepository markupDictionaryRepository;
     private final PostRepository postRepository;
 
+    @Transactional
     public Page<PostResponseDTO> findAllPostsPageable(Pageable pageable, boolean isForPublication) {
         Page<PostEntity> postsPage;
         Pageable updatedPageable = injectSortMethodAndReturnNewPageableObject(

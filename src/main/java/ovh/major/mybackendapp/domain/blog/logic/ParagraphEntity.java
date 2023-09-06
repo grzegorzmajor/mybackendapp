@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+//import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,7 +24,8 @@ class ParagraphEntity {
     private MarkupDictionaryEntity tag;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "The value cannot contain special characters.")
-    private String paragraphContent;
+    //@Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "The value cannot contain special characters.")
+    @ElementCollection
+    private List<String> paragraphContent;
 
 }
