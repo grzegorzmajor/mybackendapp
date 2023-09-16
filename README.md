@@ -56,7 +56,7 @@ Security
 | GET    | /paragraphs/{id}        | no          | needed         | returning paragraph with specified id |
 | PATCH  | /paragraphs             | no          | needed         | update paragraph                      |
 | GET    | /dict                   | no          | needed         | returning all markups                 |
-| PATCH  | /dict                   | no          | needed         | add markup                            |
+| POST   | /dict                   | no          | needed         | add markup                            |
 | DELETE | /dict/{id}              | no          | needed         | delete markup                         |
 <br>
 
