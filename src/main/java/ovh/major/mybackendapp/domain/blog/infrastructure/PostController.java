@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.infrastructure.blog;
+package ovh.major.mybackendapp.domain.blog.infrastructure;
 
 
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
 @Log4j2
 @AllArgsConstructor
 @RequestMapping("/posts")
-public class PostController {
+class PostController {
 
     BlogFacade blogFacade;
 
@@ -35,8 +35,14 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostResponseDTO> addMarkup(@RequestBody PostRequestDTO requestDTO) {
-        PostResponseDTO responseDTO = blogFacade.savePost(requestDTO);
+    public ResponseEntity<PostResponseDTO> addPost(@RequestBody PostRequestDTO requestDTO) {
+        PostResponseDTO responseDTO;
+        try {
+            responseDTO = blogFacade.savePost(requestDTO);
+        } catch (Exception e) {
+            log.error(e);
+            return ResponseEntity.status(418).build();
+        }
         return ResponseEntity.ok(responseDTO);
     }
 
