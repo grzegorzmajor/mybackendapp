@@ -2,12 +2,15 @@ package ovh.major.mybackendapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
-@SpringBootTest
+
+@SpringBootTest()
+@TestPropertySource(locations = "classpath:application-test.properties")
 class MyBackendApplicationTests {
 
-//    @Test
-//    void contextLoads() {
-//    }
+    @Test
+    void contextLoads() {
+    }
 
 }
