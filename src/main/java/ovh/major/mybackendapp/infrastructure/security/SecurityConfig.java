@@ -18,7 +18,7 @@ import ovh.major.mybackendapp.infrastructure.security.jwt.JwtAuthTokenFilter;
 
 @Configuration
 @AllArgsConstructor
-public class SecurityConfig {
+class SecurityConfig {
 
     private final JwtAuthTokenFilter jwtAuthTokenFilter;
 

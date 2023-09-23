@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog.logic;
+package ovh.major.mybackendapp.domain.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -7,7 +7,7 @@ import ovh.major.mybackendapp.domain.blog.dto.ParagraphResponseDTO;
 
 @Log4j2
 @AllArgsConstructor
-public class ParagraphService {
+class ParagraphService {
 
     private final MarkupDictionaryRepository markupDictionaryRepository;
     private final ParagraphRepository paragraphRepository;

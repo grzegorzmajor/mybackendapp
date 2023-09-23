@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.infrastructure.blog;
+package ovh.major.mybackendapp.domain.blog.infrastructure;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,7 +12,7 @@ import ovh.major.mybackendapp.domain.blog.dto.ParagraphResponseDTO;
 @Log4j2
 @AllArgsConstructor
 @RequestMapping("/paragraphs")
-public class ParagraphController {
+class ParagraphController {
 
     BlogFacade blogFacade;
 

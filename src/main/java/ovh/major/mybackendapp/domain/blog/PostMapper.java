@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog.logic;
+package ovh.major.mybackendapp.domain.blog;
 
 import ovh.major.mybackendapp.domain.blog.dto.ParagraphRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.ParagraphResponseDTO;

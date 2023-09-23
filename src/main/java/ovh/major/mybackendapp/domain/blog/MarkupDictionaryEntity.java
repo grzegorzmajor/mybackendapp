@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog.logic;
+package ovh.major.mybackendapp.domain.blog;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog.configurations;
+package ovh.major.mybackendapp.domain.blog.datasource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

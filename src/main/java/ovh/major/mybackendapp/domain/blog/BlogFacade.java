@@ -5,9 +5,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ovh.major.mybackendapp.domain.blog.dto.*;
-import ovh.major.mybackendapp.domain.blog.logic.MarkupDictionaryService;
-import ovh.major.mybackendapp.domain.blog.logic.ParagraphService;
-import ovh.major.mybackendapp.domain.blog.logic.PostService;
 
 import java.util.List;
 

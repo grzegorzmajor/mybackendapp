@@ -10,7 +10,7 @@ import ovh.major.mybackendapp.domain.login.dto.SingleUserDTO;
 import java.util.Collections;
 
 @AllArgsConstructor
-public class LoginUserDetailsService implements UserDetailsService {
+class LoginUserDetailsService implements UserDetailsService {
 
     private final LoginFacade loginFacade;
 

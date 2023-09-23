@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog.logic;
+package ovh.major.mybackendapp.domain.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Log4j2
 @AllArgsConstructor
-public class PostService {
+class PostService {
 
     private final MarkupDictionaryRepository markupDictionaryRepository;
     private final PostRepository postRepository;

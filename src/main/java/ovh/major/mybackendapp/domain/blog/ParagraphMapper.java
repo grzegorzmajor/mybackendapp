@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog.logic;
+package ovh.major.mybackendapp.domain.blog;
 
 import lombok.extern.log4j.Log4j2;
 import ovh.major.mybackendapp.domain.blog.dto.ParagraphRequestDTO;

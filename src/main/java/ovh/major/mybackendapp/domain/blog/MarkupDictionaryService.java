@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.domain.blog.logic;
+package ovh.major.mybackendapp.domain.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -11,7 +11,7 @@ import java.util.stream.StreamSupport;
 
 @Log4j2
 @AllArgsConstructor
-public class MarkupDictionaryService {
+class MarkupDictionaryService {
 
     private final MarkupDictionaryRepository markupDictionaryRepository;
 
