@@ -1,4 +1,4 @@
-package ovh.major.mybackendapp.infrastructure.blog;
+package ovh.major.mybackendapp.domain.blog.infrastructure;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -10,14 +10,13 @@ import ovh.major.mybackendapp.domain.blog.BlogFacade;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryResponseDTO;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
 @Log4j2
 @AllArgsConstructor
 @RequestMapping("/dict")
-public class MarkupDictionaryController {
+class MarkupDictionaryController {
 
     BlogFacade blogFacade;
 
@@ -29,7 +28,13 @@ public class MarkupDictionaryController {
 
     @PostMapping
     public ResponseEntity<MarkupDictionaryResponseDTO> addMarkup(@RequestBody MarkupDictionaryRequestDTO requestDTO) {
-        MarkupDictionaryResponseDTO responseDTO = blogFacade.saveMarkup(requestDTO);
+        MarkupDictionaryResponseDTO responseDTO;
+        try {
+            responseDTO = blogFacade.saveMarkup(requestDTO);
+        } catch (Exception e) {
+            log.error("Error tag saving: ", e);
+            return ResponseEntity.status(422).build();
+        }
         return ResponseEntity.ok(responseDTO);
     }
 
