@@ -31,6 +31,7 @@ class ParagraphMapperTests {
         assertAll(
                 () -> assertThat(sizeOffMappedParagraphContent.get()).isEqualTo(300),
                 () -> assertThat(paragraphEntity.getParagraphContent().size()).isEqualTo(2),
+                () -> assertThat(paragraphEntity.getParagraphContent().get(0).length()).isEqualTo(255),
                 () -> assertThat(paragraphEntity.getId()).isEqualTo(paragraphRequestDTO.id()),
                 () -> assertThat(paragraphEntity.getTag().getOpening()).isEqualTo(paragraphRequestDTO.tag().opening()),
                 () -> assertThat(paragraphEntity.getTag().getClosing()).isEqualTo(paragraphRequestDTO.tag().closing()),
