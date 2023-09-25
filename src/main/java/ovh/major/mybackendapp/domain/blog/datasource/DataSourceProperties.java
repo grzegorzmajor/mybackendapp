@@ -11,7 +11,7 @@ record DataSourceProperties (
     @Value("${url}")
     String url,
 
-    @Value("${username}")
+    @Value("${name}")
     String username,
 
     @Value("${password}")
