@@ -9,7 +9,7 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: majorbackend
-      MYSQL_USER: majorek
+      MYSQL_DATABASE: majorbackendtests
+      MYSQL_USER: testuser
       MYSQL_PASSWORD: test1
       MYSQL_ROOT_PASSWORD: test2
