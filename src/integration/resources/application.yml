@@ -1,0 +1,32 @@
+app_user:
+  name: user
+  hashedPassword: $2a$12$TPm9XomRCTdLZrqG7XBXferuKg93bHDEjYesJ9VXU9XPipl8bef5y
+
+auth:
+  jwt:
+    expirationDays: 1
+    secret: secret
+    issuer: my-backend
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT
+
+spring:
+  jpa:
+    #show-sql: true
+    hibernate:
+      #It is a good security practice to, after your database is in a production state, set this to none, revoke all
+      #privileges from the MySQL user connected to the Spring application, and give the MySQL user only SELECT, UPDATE, INSERT, and DELETE.
+      ddl-auto: update
+    open-in-view: false
+  sql:
+    init:
+      mode: always
+server:
+  ssl:
+    enabled: false
+  port: 8080
