@@ -21,7 +21,7 @@ spring:
     hibernate:
       #It is a good security practice to, after your database is in a production state, set this to none, revoke all
       #privileges from the MySQL user connected to the Spring application, and give the MySQL user only SELECT, UPDATE, INSERT, and DELETE.
-      ddl-auto: update
+      ddl-auto: create
     open-in-view: false
   sql:
     init:
