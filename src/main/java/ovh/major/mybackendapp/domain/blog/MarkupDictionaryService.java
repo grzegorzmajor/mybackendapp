@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryResponseDTO;
+import ovh.major.mybackendapp.domain.blog.infrastructure.exception.DuplicatedTagInDictException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,10 @@ class MarkupDictionaryService {
     }
 
     public MarkupDictionaryResponseDTO saveMarkup(MarkupDictionaryRequestDTO requestDTO) {
+        MarkupDictionaryEntity markupDictionaryEntity = markupDictionaryRepository.findFirstByOpening(requestDTO.opening());
+        if (markupDictionaryEntity != null) {
+            throw new DuplicatedTagInDictException();
+        }
         return MarkupDictionaryMapper.mapToResponseDto(
                 markupDictionaryRepository.save(
                         MarkupDictionaryMapper.mapFromRequestDto(requestDTO)
