@@ -172,7 +172,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(12)
-    public void shouldGiven400AndBodyWithErrorDetailsWhenUserTriesAddingThePostButThereIsNoUsedTagInDictionary() {
+    public void shouldGiven400AndBodyWithErrorDetailsWhenLoggedInUserTriesAddingThePostButThereIsNoUsedTagInDictionary() {
         String authorisation = "Bearer " + token;
         RestAssured.given()
                     .port(port)
@@ -190,6 +190,43 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .assertThat()
                     .body("status",is(equalTo(HttpStatus.BAD_REQUEST.name())));
     }
+
+    @Test
+    @Order(13)
+    public void shouldGiven200WhenLoggedInUserTriesAddNewTagToDictionary() {
+        String authorisation = "Bearer " + token;
+        RestAssured.given()
+                    .port(port)
+                    .header("Authorization", authorisation)
+                    .contentType(ContentType.JSON)
+                    .body(Examples.TAG)
+                .when()
+                    .post("/dict")
+                .then()
+                    .statusCode(200);
+    }
+
+    @Test
+    @Order(14)
+    public void shouldGiven409WhenLoggedInUserTriesAddDuplicatedTagToDictionary() {
+        String authorisation = "Bearer " + token;
+        RestAssured.given()
+                    .port(port)
+                    .header("Authorization", authorisation)
+                    .contentType(ContentType.JSON)
+                    .body(Examples.TAG)
+                .when()
+                    .post("/dict")
+                .then()
+                    .statusCode(409)
+                    .and()
+                    .assertThat()
+                    .body("message", is(equalTo("Something goes wrong! Tag already exist in dictionary.")))
+                    .and()
+                    .assertThat()
+                    .body("status",is(equalTo(HttpStatus.CONFLICT.name())));
+    }
+
 
 
 }
