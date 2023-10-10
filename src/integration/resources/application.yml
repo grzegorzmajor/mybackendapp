@@ -1,6 +1,6 @@
 app_user:
   name: user
-  hashedPassword: $2a$12$TPm9XomRCTdLZrqG7XBXferuKg93bHDEjYesJ9VXU9XPipl8bef5y
+  hashedPassword: $2a$12$0ldLTXZQintkqc08mDFo7uVXwrR3zp.F/j/3uJuOsjot37798PU8O
 
 auth:
   jwt:
