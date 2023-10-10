@@ -172,7 +172,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(12)
-    public void shouldGiven403AndBodyWithErrorDetailsWhenUserTriesAddingThePostButThereIsNoUsedTagInDictionary() {
+    public void shouldGiven400AndBodyWithErrorDetailsWhenUserTriesAddingThePostButThereIsNoUsedTagInDictionary() {
         String authorisation = "Bearer " + token;
         RestAssured.given()
                     .port(port)
