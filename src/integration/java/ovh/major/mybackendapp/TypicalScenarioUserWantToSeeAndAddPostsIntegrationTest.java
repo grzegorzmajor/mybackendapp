@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
-
 import static io.restassured.RestAssured.given;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.Matchers.*;
@@ -22,10 +21,10 @@ import static org.hamcrest.Matchers.*;
 @Log4j2
 public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIntegrationTest {
 
+    private static String token;
+
     @LocalServerPort
     private int port;
-
-    private static String token;
 
     @Test
     @Order(1)
@@ -54,7 +53,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .body("message", is(equalTo("Bad credentials!")))
                     .and()
                     .assertThat()
-                    .body("status",is(equalTo(HttpStatus.UNAUTHORIZED.name())));
+                    .body("status", is(equalTo(HttpStatus.UNAUTHORIZED.name())));
     }
 
     @Test
@@ -71,11 +70,11 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Order(4)
     public void shouldGivenStatus403WhenUserTriesGetPostWithUnpublishedByAddingRandomToken() {
         given().port(port)
-                    .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWpvckdyemVnb3J6IiwiaXNzIjoibXktYmFja2VuZCIsImV4cCI6MTY5NTg0Nzc0MSwiaWF0IjoxNjk1NzYxMzQxfQ.D5KXFq52GTOOOaXAT48_iRqj1BILZCP-uBoPe2hxHWk")
+                .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWpvckdyemVnb3J6IiwiaXNzIjoibXktYmFja2VuZCIsImV4cCI6MTY5NTg0Nzc0MSwiaWF0IjoxNjk1NzYxMzQxfQ.D5KXFq52GTOOOaXAT48_iRqj1BILZCP-uBoPe2hxHWk")
                 .when()
-                    .get("/posts/with-unpublished?page=0&size=2")
+                .get("/posts/with-unpublished?page=0&size=2")
                 .then()
-                    .statusCode(403);
+                .statusCode(403);
     }
 
     @Test
@@ -160,7 +159,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .body("token", is(not(empty())))
                     .and()
                     .assertThat()
-                    .body("name",is(equalTo("user")))
+                    .body("name", is(equalTo("user")))
                     .and()
                     .extract()
                     .response();
@@ -173,10 +172,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(12)
     public void shouldGiven400AndBodyWithErrorDetailsWhenLoggedInUserTriesAddingThePostButThereIsNoUsedTagInDictionary() {
-        String authorisation = "Bearer " + token;
         RestAssured.given()
                     .port(port)
-                    .header("Authorization", authorisation)
+                    .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
                     .body(Examples.POST)
                 .when()
@@ -188,16 +186,15 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .body("message", is(equalTo("Something goes wrong! Maybe there is no used tag in dictionary.")))
                     .and()
                     .assertThat()
-                    .body("status",is(equalTo(HttpStatus.BAD_REQUEST.name())));
+                    .body("status", is(equalTo(HttpStatus.BAD_REQUEST.name())));
     }
 
     @Test
     @Order(13)
     public void shouldGiven200WhenLoggedInUserTriesAddNewTagToDictionary() {
-        String authorisation = "Bearer " + token;
         RestAssured.given()
                     .port(port)
-                    .header("Authorization", authorisation)
+                    .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
                     .body(Examples.TAG)
                 .when()
@@ -209,10 +206,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(14)
     public void shouldGiven409WhenLoggedInUserTriesAddDuplicatedTagToDictionary() {
-        String authorisation = "Bearer " + token;
         RestAssured.given()
                     .port(port)
-                    .header("Authorization", authorisation)
+                    .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
                     .body(Examples.TAG)
                 .when()
@@ -224,9 +220,44 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .body("message", is(equalTo("Something goes wrong! Tag already exist in dictionary.")))
                     .and()
                     .assertThat()
-                    .body("status",is(equalTo(HttpStatus.CONFLICT.name())));
+                    .body("status", is(equalTo(HttpStatus.CONFLICT.name())));
+    }
+
+    @Test
+    @Order(15)
+    public void shouldGiven200WhenLoggedInUserTriesAddingPostWithPublicationDateInTheFuture() {
+        given().port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                    .contentType(ContentType.JSON)
+                    .body(Examples.getInTheFuturePost())
+                .when()
+                    .post("/posts")
+                .then()
+                    .statusCode(200);
+    }
+
+    @Test
+    @Order(16)
+    public void shouldGiveStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmptyAgain() {
+        shouldGiveStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmpty();
+    }
+
+    @Test
+    @Order(17)
+    public void shouldGiveStatus200AndNotEmptyListWhenGetPostsFromEndpointWithUnpublished() {
+        given().port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                .when()
+                    .get("/posts/with-unpublished?page=0&size=2")
+                .then()
+                    .statusCode(200)
+                    .assertThat()
+                    .body("content", is(not(equalTo(emptyList()))));
     }
 
 
+    private static String getTokenHeaderValue() {
+        return "Bearer " + token;
+    }
 
 }
