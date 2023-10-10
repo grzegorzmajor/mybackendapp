@@ -20,8 +20,8 @@ public enum Examples {
             "        {            \n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<p>\",\n" +
-            "                    \"closing\": \"</p>\"\n" +
+            "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +
+            "                    \"closing\": \"</h3>\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Czas już było wrócić do mojego backendu do bloga.\" \n" +
             "        }\n" +
