@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import ovh.major.mybackendapp.domain.blog.dto.PostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
+import ovh.major.mybackendapp.domain.blog.infrastructure.exception.NoUsedTagInDictDBException;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -62,8 +63,10 @@ class PostService {
                 .peek(paragraph -> {
                     MarkupDictionaryEntity responseFromDatabaseTagEntity = markupDictionaryRepository.findFirstByOpening(
                             paragraph.getTag().getOpening());
-                    if (responseFromDatabaseTagEntity.getId() > 0) {
+                    if (responseFromDatabaseTagEntity != null) {
                         paragraph.setTag(responseFromDatabaseTagEntity);
+                    } else {
+                        throw new NoUsedTagInDictDBException();
                     }
                 }).toList();
     }

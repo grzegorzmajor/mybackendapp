@@ -37,12 +37,7 @@ class PostController {
     @PostMapping
     public ResponseEntity<PostResponseDTO> addPost(@RequestBody PostRequestDTO requestDTO) {
         PostResponseDTO responseDTO;
-        try {
-            responseDTO = blogFacade.savePost(requestDTO);
-        } catch (Exception e) {
-            log.error(e);
-            return ResponseEntity.status(418).build();
-        }
+        responseDTO = blogFacade.savePost(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
