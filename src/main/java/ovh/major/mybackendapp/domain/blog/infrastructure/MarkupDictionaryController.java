@@ -29,12 +29,7 @@ class MarkupDictionaryController {
     @PostMapping
     public ResponseEntity<MarkupDictionaryResponseDTO> addMarkup(@RequestBody MarkupDictionaryRequestDTO requestDTO) {
         MarkupDictionaryResponseDTO responseDTO;
-        try {
-            responseDTO = blogFacade.saveMarkup(requestDTO);
-        } catch (Exception e) {
-            log.error("Error tag saving: ", e);
-            return ResponseEntity.status(422).build();
-        }
+        responseDTO = blogFacade.saveMarkup(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
