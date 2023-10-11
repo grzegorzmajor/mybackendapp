@@ -23,13 +23,18 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     private static String token;
 
+    private static Integer addedTagId;
+    private static String addedPostId;
+
     @LocalServerPort
     private int port;
 
     @Test
     @Order(1)
     public void shouldGiveStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmpty() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                 .when()
                     .get("/posts?page=0&size=2")
                 .then()
@@ -41,7 +46,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(2)
     public void shouldGiveStatus403WhenUserTriesLoginWithBadCredentials() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                     .contentType(ContentType.JSON)
                     .body(Examples.BAD_CREDENTIALS)
                 .when()
@@ -59,7 +66,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(3)
     public void shouldGiveStatus403WhenUserIsNotLoggedInAndTriesGetPostsWithUnpublished() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                 .when()
                     .get("/posts/with-unpublished?page=0&size=2")
                 .then()
@@ -69,18 +78,22 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(4)
     public void shouldGivenStatus403WhenUserTriesGetPostWithUnpublishedByAddingRandomToken() {
-        given().port(port)
-                .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWpvckdyemVnb3J6IiwiaXNzIjoibXktYmFja2VuZCIsImV4cCI6MTY5NTg0Nzc0MSwiaWF0IjoxNjk1NzYxMzQxfQ.D5KXFq52GTOOOaXAT48_iRqj1BILZCP-uBoPe2hxHWk")
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWpvckdyemVnb3J6IiwiaXNzIjoibXktYmFja2VuZCIsImV4cCI6MTY5NTg0Nzc0MSwiaWF0IjoxNjk1NzYxMzQxfQ.D5KXFq52GTOOOaXAT48_iRqj1BILZCP-uBoPe2hxHWk")
                 .when()
-                .get("/posts/with-unpublished?page=0&size=2")
+                    .get("/posts/with-unpublished?page=0&size=2")
                 .then()
-                .statusCode(403);
+                    .statusCode(403);
     }
 
     @Test
     @Order(5)
     public void shouldGiven403WhenUserIsNotLoggedInAndTriesAddNewPost() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                     .contentType(ContentType.JSON)
                     .body(Examples.POST)
                 .when()
@@ -92,7 +105,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(6)
     public void shouldGiven403WhenUserIsNotLoggedInAndTriesGetParagraphWithSpecifiedId() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                 .when()
                     .get("/paragraphs/1")
                 .then()
@@ -102,7 +117,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(7)
     public void shouldGiven403WhenUserIsNotLoggedInAndTriesEditParagraph() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                     .contentType(ContentType.JSON)
                     .body(Examples.PARAGRAPH)
                 .when()
@@ -114,7 +131,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(8)
     public void shouldGiven403WhenUserIsNotLoggedInAndTriesGetTagsDictionary() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                 .when()
                     .get("/paragraphs/1")
                 .then()
@@ -124,7 +143,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(9)
     public void shouldGiven403WhenUserIsNotLoggedInAndTriesEditTagInDictionary() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                     .contentType(ContentType.JSON)
                     .body(Examples.TAG)
                 .when()
@@ -136,7 +157,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(10)
     public void shouldGiven403WhenUserIsNotLoggedInAndTriesDeleteTagInDictionary() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                 .when()
                     .delete("/dict/1")
                 .then()
@@ -146,8 +169,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(11)
     public void shouldGiven200AndBodyWithTokenAndUserNameWhenUserTriesLoginWithCorrectLoginDetails() {
-        Response response =
-                given().port(port)
+        Response response = RestAssured
+                .given()
+                    .port(port)
                     .contentType(ContentType.JSON)
                     .body(Examples.CORRECT_CREDENTIALS)
                 .when()
@@ -166,13 +190,13 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
         //token is needed for next tests
         token = response.path("token");
-        log.info(token);
     }
 
     @Test
     @Order(12)
     public void shouldGiven400AndBodyWithErrorDetailsWhenLoggedInUserTriesAddingThePostButThereIsNoUsedTagInDictionary() {
-        RestAssured.given()
+        RestAssured
+                .given()
                     .port(port)
                     .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
@@ -192,7 +216,8 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(13)
     public void shouldGiven200WhenLoggedInUserTriesAddNewTagToDictionary() {
-        RestAssured.given()
+        Response response = RestAssured
+                .given()
                     .port(port)
                     .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
@@ -200,13 +225,20 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                 .when()
                     .post("/dict")
                 .then()
-                    .statusCode(200);
+                    .statusCode(200)
+                    .and()
+                    .extract()
+                    .response();
+
+        //tag id is needed for next tests
+        addedTagId = response.path("id");
     }
 
     @Test
     @Order(14)
     public void shouldGiven409WhenLoggedInUserTriesAddDuplicatedTagToDictionary() {
-        RestAssured.given()
+        RestAssured
+                .given()
                     .port(port)
                     .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
@@ -226,7 +258,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(15)
     public void shouldGiven200WhenLoggedInUserTriesAddingPostWithPublicationDateInTheFuture() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                     .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
                     .body(Examples.getInTheFuturePost())
@@ -245,7 +279,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(17)
     public void shouldGiveStatus200AndNotEmptyListWhenGetPostsFromEndpointWithUnpublished() {
-        given().port(port)
+        RestAssured
+                .given()
+                    .port(port)
                     .header("Authorization", getTokenHeaderValue())
                 .when()
                     .get("/posts/with-unpublished?page=0&size=2")
@@ -253,6 +289,19 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .statusCode(200)
                     .assertThat()
                     .body("content", is(not(equalTo(emptyList()))));
+    }
+
+    @Test
+    @Order(18)
+    public void shouldGiveStatus409WhenUserTriesDeleteTagUsedInExistingPosts() {
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                .when()
+                    .delete("/dict/"+addedTagId)
+                .then()
+                    .statusCode(409);
     }
 
 
