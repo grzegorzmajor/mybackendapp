@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.MarkupDictionaryResponseDTO;
+import ovh.major.mybackendapp.domain.blog.infrastructure.exception.DependencyExistsException;
 import ovh.major.mybackendapp.domain.blog.infrastructure.exception.DuplicatedTagInDictException;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.StreamSupport;
 class MarkupDictionaryService {
 
     private final MarkupDictionaryRepository markupDictionaryRepository;
+    private final ParagraphRepository paragraphRepository;
 
     public List<MarkupDictionaryResponseDTO> findAllMarkups() {
         List<MarkupDictionaryEntity> markups = StreamSupport.stream(markupDictionaryRepository.findAll().spliterator(), false)
@@ -37,8 +39,11 @@ class MarkupDictionaryService {
 
     }
 
-    public void deleteMarkup(String id) {
-        markupDictionaryRepository.deleteById(Integer.parseInt(id));
+    public void deleteMarkup(Integer id) {
+        if (paragraphRepository.checkDependencies(id)) {
+            throw new DependencyExistsException();
+        }
+        markupDictionaryRepository.deleteById(id);
     }
 
 }
