@@ -25,7 +25,7 @@ public class BlogFacade {
         return markupDictionaryService.saveMarkup(requestDTO);
     }
 
-    public void deleteMarkup(String id) {
+    public void deleteMarkup(Integer id) {
         markupDictionaryService.deleteMarkup(id);
     }
 
