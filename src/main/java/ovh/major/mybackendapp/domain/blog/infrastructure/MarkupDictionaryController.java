@@ -34,16 +34,8 @@ class MarkupDictionaryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteMarkup(@RequestBody @PathVariable String id) {
-        try {
-            blogFacade.deleteMarkup(id);
-        } catch (DataAccessException e){
-            log.error("DELETING NOT POSSIBLE FOR SOME REASON");
-            return ResponseEntity.status(HttpStatusCode.valueOf(418)).build();
-        } catch (Exception e) {
-            log.error("Exception in DELETE method - deleteMarkup: " + e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity deleteMarkup(@RequestBody @PathVariable Integer id) {
+        blogFacade.deleteMarkup(id);
         return ResponseEntity.noContent().build();
     }
 
