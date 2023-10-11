@@ -169,7 +169,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(11)
     public void shouldGiven200AndBodyWithTokenAndUserNameWhenUserTriesLoginWithCorrectLoginDetails() {
-        Response response = RestAssured
+        token = RestAssured //token is needed for next tests
                 .given()
                     .port(port)
                     .contentType(ContentType.JSON)
@@ -184,12 +184,11 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .and()
                     .assertThat()
                     .body("name", is(equalTo("user")))
+                    //token is needed for next tests
                     .and()
                     .extract()
-                    .response();
-
-        //token is needed for next tests
-        token = response.path("token");
+                    .response()
+                    .path("token");
     }
 
     @Test
@@ -216,7 +215,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(13)
     public void shouldGiven200WhenLoggedInUserTriesAddNewTagToDictionary() {
-        Response response = RestAssured
+        addedTagId = RestAssured //tag id is needed for next tests
                 .given()
                     .port(port)
                     .header("Authorization", getTokenHeaderValue())
@@ -226,12 +225,11 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .post("/dict")
                 .then()
                     .statusCode(200)
+                    //tag id is needed for next tests
                     .and()
                     .extract()
-                    .response();
-
-        //tag id is needed for next tests
-        addedTagId = response.path("id");
+                    .response()
+                    .path("id");
     }
 
     @Test
