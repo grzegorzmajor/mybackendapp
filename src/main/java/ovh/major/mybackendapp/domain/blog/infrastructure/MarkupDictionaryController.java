@@ -2,8 +2,6 @@ package ovh.major.mybackendapp.domain.blog.infrastructure;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ovh.major.mybackendapp.domain.blog.BlogFacade;
@@ -32,12 +30,5 @@ class MarkupDictionaryController {
         responseDTO = blogFacade.saveMarkup(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteMarkup(@RequestBody @PathVariable Integer id) {
-        blogFacade.deleteMarkup(id);
-        return ResponseEntity.noContent().build();
-    }
-
 
 }
