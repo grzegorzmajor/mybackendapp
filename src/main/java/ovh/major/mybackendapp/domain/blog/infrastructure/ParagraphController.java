@@ -2,6 +2,7 @@ package ovh.major.mybackendapp.domain.blog.infrastructure;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ovh.major.mybackendapp.domain.blog.BlogFacade;
@@ -17,14 +18,22 @@ class ParagraphController {
     BlogFacade blogFacade;
 
     @PatchMapping
-    public ResponseEntity patchParagraph(@RequestBody ParagraphRequestDTO requestDTO) {
+    public ResponseEntity<ParagraphResponseDTO> patchParagraph(@RequestBody ParagraphRequestDTO requestDTO) {
         ParagraphResponseDTO responseDTO = blogFacade.patchParagraph(requestDTO);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ParagraphResponseDTO> getParagraph(@RequestBody @PathVariable String id) {
+    public ResponseEntity<ParagraphResponseDTO> getParagraph(@PathVariable Integer id) {
         ParagraphResponseDTO responseDTO = blogFacade.getParagraph(id);
         return ResponseEntity.ok(responseDTO);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteParagraph(@PathVariable Integer id) {
+        blogFacade.deleteParagraphById(id);
+    }
+
+
 }
