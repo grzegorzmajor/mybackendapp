@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Configuration;
 class ServicesConfiguration {
 
     @Bean
-    MarkupDictionaryService markupDictionaryService(MarkupDictionaryRepository markupDictionaryRepository,
-                                                    ParagraphRepository paragraphRepository) {
-        return new MarkupDictionaryService(markupDictionaryRepository, paragraphRepository);
+    MarkupDictionaryService markupDictionaryService(MarkupDictionaryRepository markupDictionaryRepository) {
+        return new MarkupDictionaryService(markupDictionaryRepository);
     }
 
     @Bean
