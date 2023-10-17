@@ -9,7 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import ovh.major.mybackendapp.domain.blog.dto.PostRequestDTO;
 import ovh.major.mybackendapp.domain.blog.dto.PostResponseDTO;
+import ovh.major.mybackendapp.domain.blog.infrastructure.exception.EntityWithIdNotExistException;
 import ovh.major.mybackendapp.domain.blog.infrastructure.exception.NoUsedTagInDictDBException;
+import ovh.major.mybackendapp.domain.blog.infrastructure.exception.PublicationDateNotValidException;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -56,6 +58,48 @@ class PostService {
         return PostMapper.mapToResponseDto(
                 postRepository.save(postEntity)
         );
+    }
+
+    @Transactional
+    public PostResponseDTO patchPost(Integer id, Timestamp timestamp) {
+
+        if (!postRepository.existsById(id)) {
+            throw new EntityWithIdNotExistException(id);
+        }
+
+        PostEntity inDbPostEntity = postRepository.findById(id)
+                .orElseThrow();
+
+        if (inDbPostEntity.getPublicationDate() == timestamp
+                && timestamp.before(new Timestamp(System.currentTimeMillis()-3600000))) {
+            throw new PublicationDateNotValidException();
+        }
+        Integer patchedId = postRepository.updatePublicationDate(id, timestamp);
+        PostEntity postEntity = postRepository.findById(patchedId)
+                .orElseThrow();
+        return PostMapper.mapToResponseDto(postEntity);
+    }
+
+    @Transactional
+    public PostResponseDTO findPostById(Integer id) {
+
+        if (!postRepository.existsById(id)) {
+            throw new EntityWithIdNotExistException(id);
+        }
+
+        return PostMapper.mapToResponseDto(
+                postRepository.findById(id)
+                        .orElseThrow());
+    }
+
+    @Transactional
+    public void deletePostById(Integer id) {
+
+        if (!postRepository.existsById(id)) {
+            throw new EntityWithIdNotExistException(id);
+        }
+
+        postRepository.deleteById(id);
     }
 
     private List<ParagraphEntity> findAndReturnParagraphListWithThemWhenExistInRepository(List<ParagraphEntity> paragraphEntities) {
