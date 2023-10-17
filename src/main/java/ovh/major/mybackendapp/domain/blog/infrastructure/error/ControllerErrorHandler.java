@@ -5,16 +5,19 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ovh.major.mybackendapp.domain.blog.infrastructure.exception.DependencyExistsException;
 import ovh.major.mybackendapp.domain.blog.infrastructure.exception.DuplicatedTagInDictException;
+import ovh.major.mybackendapp.domain.blog.infrastructure.exception.EntityWithIdNotExistException;
 import ovh.major.mybackendapp.domain.blog.infrastructure.exception.NoUsedTagInDictDBException;
+import ovh.major.mybackendapp.domain.blog.infrastructure.exception.NothingToChangeException;
 
 @ControllerAdvice
 class ControllerErrorHandler {
 
     private static final String NO_TAG_IN_DICT = "Something goes wrong! Maybe there is no used tag in dictionary.";
     private static final String DUPLICATED_TAG = "Something goes wrong! Tag already exist in dictionary.";
-    private static final String DELETE_NOT_POSSIBLE_BECAUSE_DEPENDENCY_IS_EXIST = "Something goes wrong! Deleting not possible because dependency is exist.";
+    private static final String NOTHING_TO_CHANGE = "Nothing to change! But everything it`s ok!";
+
+    private static final String ENTITY_NOT_EXIST =  "Entity with specified ID nod exist!";
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NoUsedTagInDictDBException.class)
@@ -29,12 +32,18 @@ class ControllerErrorHandler {
     public ErrorResponse handleDuplicatedTagInDictException() {
         return new ErrorResponse(DUPLICATED_TAG, HttpStatus.CONFLICT);
     }
-
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(DependencyExistsException.class)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ExceptionHandler(NothingToChangeException.class)
     @ResponseBody
-    public ErrorResponse handleDependencyExistException() {
-        return new ErrorResponse(DELETE_NOT_POSSIBLE_BECAUSE_DEPENDENCY_IS_EXIST,HttpStatus.CONFLICT);
+    public ErrorResponse handleNothingToChangeException() {
+        return new ErrorResponse(NOTHING_TO_CHANGE, HttpStatus.NO_CONTENT);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(EntityWithIdNotExistException.class)
+    @ResponseBody
+    public ErrorResponse handleEntityNotExistException() {
+        return new ErrorResponse(ENTITY_NOT_EXIST, HttpStatus.BAD_REQUEST);
     }
 
 }
