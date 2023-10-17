@@ -42,9 +42,6 @@ class ParagraphMapper {
                 temporaryString = "";
             }
         }
-
-        log.info(fragmentedParagraph);
-
         return fragmentedParagraph;
     }
 
