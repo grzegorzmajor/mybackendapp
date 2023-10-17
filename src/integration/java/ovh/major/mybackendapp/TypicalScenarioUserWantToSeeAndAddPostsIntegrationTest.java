@@ -8,11 +8,14 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
-import static io.restassured.RestAssured.given;
+import java.util.stream.Stream;
+
 import static java.util.Collections.emptyList;
 import static org.hamcrest.Matchers.*;
 
@@ -22,16 +25,17 @@ import static org.hamcrest.Matchers.*;
 public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIntegrationTest {
 
     private static String token;
+    private static Integer addedPostId;
 
-    private static Integer addedTagId;
-    private static String addedPostId;
+    private static Integer someParagraphId;
+    private static Integer someOtherParagraphId;
 
     @LocalServerPort
     private int port;
 
     @Test
     @Order(1)
-    public void shouldGiveStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmpty() {
+    public void shouldGivenStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmpty() {
         RestAssured
                 .given()
                     .port(port)
@@ -45,7 +49,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(2)
-    public void shouldGiveStatus403WhenUserTriesLoginWithBadCredentials() {
+    public void shouldGivenStatus403WhenUserTriesLoginWithBadCredentials() {
         RestAssured
                 .given()
                     .port(port)
@@ -65,7 +69,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(3)
-    public void shouldGiveStatus403WhenUserIsNotLoggedInAndTriesGetPostsWithUnpublished() {
+    public void shouldGivenStatus403WhenUserIsNotLoggedInAndTriesGetPostsWithUnpublished() {
         RestAssured
                 .given()
                     .port(port)
@@ -81,7 +85,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
         RestAssured
                 .given()
                     .port(port)
-                    .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWpvckdyemVnb3J6IiwiaXNzIjoibXktYmFja2VuZCIsImV4cCI6MTY5NTg0Nzc0MSwiaWF0IjoxNjk1NzYxMzQxfQ.D5KXFq52GTOOOaXAT48_iRqj1BILZCP-uBoPe2hxHWk")
+                    .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWpvckdyemVnb3J6IiwiaXNzIjoibXktYmFja2VuZCIsImV4cCI6MTY5NzE0NTg0MiwiaWF0IjoxNjk3MDU5NDQyfQ.j5dnR07zwM79iOnH3EaOVvRRN39JJHCpuoGfkuNgGzg")
                 .when()
                     .get("/posts/with-unpublished?page=0&size=2")
                 .then()
@@ -90,7 +94,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(5)
-    public void shouldGiven403WhenUserIsNotLoggedInAndTriesAddNewPost() {
+    public void shouldGivenStatus403WhenUserIsNotLoggedInAndTriesAddNewPost() {
         RestAssured
                 .given()
                     .port(port)
@@ -104,7 +108,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(6)
-    public void shouldGiven403WhenUserIsNotLoggedInAndTriesGetParagraphWithSpecifiedId() {
+    public void shouldGivenStatus403WhenUserIsNotLoggedInAndTriesGetParagraphWithSpecifiedId() {
         RestAssured
                 .given()
                     .port(port)
@@ -116,21 +120,21 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(7)
-    public void shouldGiven403WhenUserIsNotLoggedInAndTriesEditParagraph() {
+    public void shouldGivenStatus403WhenUserIsNotLoggedInAndTriesPatchParagraph() {
         RestAssured
                 .given()
                     .port(port)
                     .contentType(ContentType.JSON)
                     .body(Examples.PARAGRAPH)
                 .when()
-                    .patch("/paragraphs/1")
+                    .patch("/paragraphs")
                 .then()
                     .statusCode(403);
     }
 
     @Test
     @Order(8)
-    public void shouldGiven403WhenUserIsNotLoggedInAndTriesGetTagsDictionary() {
+    public void shouldGivenStatus403WhenUserIsNotLoggedInAndTriesGetTagsDictionary() {
         RestAssured
                 .given()
                     .port(port)
@@ -142,12 +146,12 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(9)
-    public void shouldGiven403WhenUserIsNotLoggedInAndTriesEditTagInDictionary() {
+    public void shouldGivenStatus403WhenUserIsNotLoggedInAndTriesEditTagInDictionary() {
         RestAssured
                 .given()
                     .port(port)
                     .contentType(ContentType.JSON)
-                    .body(Examples.TAG)
+                    .body(Examples.TAG_H3)
                 .when()
                     .patch("/dict/1")
                 .then()
@@ -156,7 +160,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(10)
-    public void shouldGiven403WhenUserIsNotLoggedInAndTriesDeleteTagInDictionary() {
+    public void shouldGivenStatus403WhenUserIsNotLoggedInAndTriesDeleteTagInDictionary() {
         RestAssured
                 .given()
                     .port(port)
@@ -168,7 +172,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(11)
-    public void shouldGiven200AndBodyWithTokenAndUserNameWhenUserTriesLoginWithCorrectLoginDetails() {
+    public void shouldGivenStatus200AndBodyWithTokenAndUserNameWhenUserTriesLoginWithCorrectLoginDetails() {
         token = RestAssured //token is needed for next tests
                 .given()
                     .port(port)
@@ -184,16 +188,16 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .and()
                     .assertThat()
                     .body("name", is(equalTo("user")))
-                    //token is needed for next tests
-                    .and()
-                    .extract()
-                    .response()
-                    .path("token");
+                //token is needed for next tests
+                .and()
+                .extract()
+                .response()
+                .path("token");
     }
 
     @Test
     @Order(12)
-    public void shouldGiven400AndBodyWithErrorDetailsWhenLoggedInUserTriesAddingThePostButThereIsNoUsedTagInDictionary() {
+    public void shouldGivenStatus400AndBodyWithErrorDetailsWhenLoggedInUserTriesAddingThePostButThereIsNoUsedTagInDictionary() {
         RestAssured
                 .given()
                     .port(port)
@@ -215,21 +219,16 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(13)
     public void shouldGiven200WhenLoggedInUserTriesAddNewTagToDictionary() {
-        addedTagId = RestAssured //tag id is needed for next tests
+        RestAssured
                 .given()
                     .port(port)
                     .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
-                    .body(Examples.TAG)
+                    .body(Examples.TAG_H3)
                 .when()
                     .post("/dict")
                 .then()
-                    .statusCode(200)
-                    //tag id is needed for next tests
-                    .and()
-                    .extract()
-                    .response()
-                    .path("id");
+                    .statusCode(200);
     }
 
     @Test
@@ -240,7 +239,7 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                     .port(port)
                     .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
-                    .body(Examples.TAG)
+                    .body(Examples.TAG_H3)
                 .when()
                     .post("/dict")
                 .then()
@@ -256,27 +255,34 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
     @Test
     @Order(15)
     public void shouldGiven200WhenLoggedInUserTriesAddingPostWithPublicationDateInTheFuture() {
-        RestAssured
+        Response response = RestAssured //post id is needed for next tests
                 .given()
                     .port(port)
                     .header("Authorization", getTokenHeaderValue())
                     .contentType(ContentType.JSON)
-                    .body(Examples.getInTheFuturePost())
+                    .body(Examples.getPostWithInTheFutureTimestamp())
                 .when()
                     .post("/posts")
                 .then()
-                    .statusCode(200);
+                    .statusCode(200)
+                //post id is needed for next tests
+                .and()
+                .extract()
+                .response();
+        addedPostId =  response.path("id");
+        someParagraphId = response.path("paragraphs[0].id");
+        someOtherParagraphId = response.path("paragraphs[1].id");
     }
 
     @Test
     @Order(16)
-    public void shouldGiveStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmptyAgain() {
-        shouldGiveStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmpty();
+    public void shouldGivenStatus200AndEmptyContentWhenLoggedInUserTriesToGetPostsAndDatabaseWillEmptyAgain() {
+        shouldGivenStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmpty();
     }
 
     @Test
     @Order(17)
-    public void shouldGiveStatus200AndNotEmptyListWhenGetPostsFromEndpointWithUnpublished() {
+    public void shouldGivenStatus200AndNotEmptyListWhenLoggedInUserTriesGetPostsFromEndpointWithUnpublished() {
         RestAssured
                 .given()
                     .port(port)
@@ -291,20 +297,159 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
 
     @Test
     @Order(18)
-    public void shouldGiveStatus409WhenUserTriesDeleteTagUsedInExistingPosts() {
+    public void shouldGivenStatus200WhenLoggedInUserTriesPatchPostWitchChangedPublicationDate() {
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                    .param("timestamp", Examples.getCurrentTimestamp())
+                    .contentType(ContentType.JSON)
+                    //.body(Examples.PARAGRAPHS)
+                .when()
+                    .patch("/posts/" + addedPostId)
+                .then()
+                    .statusCode(200)
+                    .log();
+    }
+
+    @Test
+    @Order(19)
+    public void shouldGivenStatus200AndPostWhenNotLoggedInUserTriesGetPosts() {
+        RestAssured
+                .given()
+                .port(port).port(port)
+                .when()
+                    .get("/posts?page=0&size=2")
+                .then()
+                    .statusCode(200)
+                    .assertThat()
+                    .body("content", is(not(equalTo(emptyList()))));
+    }
+
+    @Test
+    @Order(20)
+    public void shouldGivenStatus200AndPostWhenLoggedInUserTriesGetPostWithSpecifiedId() {
         RestAssured
                 .given()
                     .port(port)
                     .header("Authorization", getTokenHeaderValue())
                 .when()
-                    .delete("/dict/"+addedTagId)
+                    .get("/posts/" + addedPostId)
                 .then()
-                    .statusCode(409);
+                    .statusCode(200);
+    }
+
+    @Test
+    @Order(21)
+    public void shouldGivenStatus400WhenLoggedUserTriesPatchParagraphWitchSpecifiedIdAndNewTagIsNotExistInDictionary(){
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                    .contentType(ContentType.JSON)
+                    .body(Examples
+                            .PARAGRAPH_2
+                            .toString()
+                            .replace("\"id\":\"xx\",", "\"id\":\"" + someParagraphId +  "\","))
+                .when()
+                    .patch("/paragraphs")
+                .then()
+                    .statusCode(400)
+                    .assertThat()
+                    .body("message", is(equalTo("Something goes wrong! Maybe there is no used tag in dictionary.")));
+    }
+
+    @Test
+    @Order(22)
+    public void shouldGivenStatus200WhenLoggedUserTriesAddNewTagToDictionary(){
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                    .contentType(ContentType.JSON)
+                    .body(Examples.TAG_P)
+                .when()
+                    .post("/dict")
+                .then()
+                    .statusCode(200);
+    }
+
+    @ParameterizedTest
+    @MethodSource("paragraphsExample")
+    @Order(23)
+    public void shouldGivenStatus200WhenLoggedUserTriesPatchParagraph(String paragraph){
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                    .contentType(ContentType.JSON)
+                    .body(paragraph)
+                .when()
+                    .patch("/paragraphs")
+                .then()
+                    .statusCode(200);
     }
 
 
+    @Test
+    @Order(24)
+    public void shouldGivenStatus200WhenLoggedUserTriesDeleteParagraphWitchSpecifiedId(){
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                .when()
+                    .delete("/paragraphs/" + someOtherParagraphId)
+                .then()
+                    .statusCode(204);
+    }
+
+    @Test
+    @Order(25)
+    public void shouldGivenStatus200WhenUserTriesDeletePost() {
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                .when()
+                    .delete("/posts/" + addedPostId)
+                .then()
+                    .statusCode(204);
+    }
+
+    @Test
+    @Order(26)
+    public void shouldGivenStatus200AndEmptyListWhenLoggedInUserTriesGetTagsFromDictionary() {
+        RestAssured
+                .given()
+                    .port(port)
+                    .header("Authorization", getTokenHeaderValue())
+                .when()
+                    .get("/dict")
+                .then()
+                    .statusCode(200)
+                    .assertThat()
+                    .body("content", is(equalTo(emptyList())));
+    }
+
+    @Test
+    @Order(27)
+    public void shouldGivenStatus200AndEmptyContentWhenUserTriesToGetPostsAndEverythingWasDeleted() {
+        shouldGivenStatus200AndEmptyContentWhenUserTriesToGetPostsAndDatabaseWillEmpty();
+    }
+
     private static String getTokenHeaderValue() {
         return "Bearer " + token;
+    }
+
+    public static Stream<String> paragraphsExample() {
+        return Stream.of(
+                Examples.PARAGRAPH
+                        .toString()
+                        .replace("\"id\":\"xx\",", "\"id\":\"" + someParagraphId +  "\","),
+                Examples.PARAGRAPH_2
+                        .toString()
+                        .replace("\"id\":\"xx\",", "\"id\":\"" + someParagraphId +  "\","));
     }
 
 }
