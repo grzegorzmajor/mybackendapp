@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import ovh.major.mybackendapp.domain.blog.dto.*;
 
 import java.util.List;
+import java.sql.Timestamp;
 
 @Log4j2
 @AllArgsConstructor
@@ -25,15 +26,11 @@ public class BlogFacade {
         return markupDictionaryService.saveMarkup(requestDTO);
     }
 
-    public void deleteMarkup(Integer id) {
-        markupDictionaryService.deleteMarkup(id);
-    }
-
     public ParagraphResponseDTO patchParagraph(ParagraphRequestDTO requestDTO) {
         return paragraphService.patchParagraph(requestDTO);
     }
 
-    public ParagraphResponseDTO getParagraph(String id) {
+    public ParagraphResponseDTO getParagraph(Integer id) {
         return paragraphService.getParagraph(id);
     }
 
@@ -49,4 +46,19 @@ public class BlogFacade {
         return postService.savePost(requestDTO);
     }
 
+    public PostResponseDTO patchPost(Integer postId, Timestamp timestamp){
+        return postService.patchPost(postId, timestamp);
+    }
+
+    public PostResponseDTO findPostById(Integer id) {
+        return postService.findPostById(id);
+    }
+
+    public void deletePostById(Integer id) {
+        postService.deletePostById(id);
+    }
+
+    public void deleteParagraphById(Integer id) {
+        paragraphService.deleteParagraphById(id);
+    }
 }
