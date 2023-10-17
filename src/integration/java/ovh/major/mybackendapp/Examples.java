@@ -77,6 +77,15 @@ public enum Examples {
             "                },\n" +
             "            \"paragraphContent\": \"Pierwsze testy integracyjne wersja 3\"\n" +
             "}"),
+    PARAGRAPH_3("{\n" +
+            "           \"id\":\"xx\",\n" +
+            "            \"tag\": {\n" +
+            "                    \"id\":\"\",\n" +
+            "                    \"opening\": \"<p>\",\n" +
+            "                    \"closing\": \"</p>\"\n" +
+            "                },\n" +
+            "            \"paragraphContent\": \"Pierwsze testy integracyjne\"\n" +
+            "}"),
     TAG_H3("{\n" +
             "                    \"id\":\"\",\n" +
             "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +

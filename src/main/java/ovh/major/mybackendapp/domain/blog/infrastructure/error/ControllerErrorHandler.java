@@ -10,6 +10,8 @@ import ovh.major.mybackendapp.domain.blog.infrastructure.exception.EntityWithIdN
 import ovh.major.mybackendapp.domain.blog.infrastructure.exception.NoUsedTagInDictDBException;
 import ovh.major.mybackendapp.domain.blog.infrastructure.exception.NothingToChangeException;
 
+import java.util.NoSuchElementException;
+
 @ControllerAdvice
 class ControllerErrorHandler {
 
@@ -40,10 +42,9 @@ class ControllerErrorHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(EntityWithIdNotExistException.class)
+    @ExceptionHandler({EntityWithIdNotExistException.class, NoSuchElementException.class})
     @ResponseBody
     public ErrorResponse handleEntityNotExistException() {
         return new ErrorResponse(ENTITY_NOT_EXIST, HttpStatus.BAD_REQUEST);
     }
-
 }

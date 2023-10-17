@@ -23,79 +23,67 @@ class ParagraphService {
 
     @Transactional
     public ParagraphResponseDTO patchParagraph(ParagraphRequestDTO requestDTO) {
-
         boolean isChanged = false;
-
-        if (!paragraphRepository.existsById(requestDTO.id())) {
-            throw new EntityWithIdNotExistException(requestDTO.id());
-        }
-
-
-
+        throwIfParagraphWithIdNotExist(requestDTO.id());
         ParagraphEntity fromDatabaseParagraphEntity = paragraphRepository.findFirstById(requestDTO.id());
-
         ParagraphEntity newParagraphEntity = ParagraphMapper.mapFromRequestDto(requestDTO);
-
         MarkupDictionaryEntity oldMarkupDictionaryEntity = fromDatabaseParagraphEntity.getTag();
 
-
-        if (!fromDatabaseParagraphEntity
-                .getTag()
-                .getOpening()
-                .equals(newParagraphEntity
-                        .getTag()
-                        .getOpening())) {
-
+        if (theyHaveDifferentTags(fromDatabaseParagraphEntity, newParagraphEntity)) {
             MarkupDictionaryEntity markupDictionaryEntity =
                     markupDictionaryRepository.findFirstByOpening(newParagraphEntity
                             .getTag()
                             .getOpening());
-
-            if (markupDictionaryEntity == null) throw new NoUsedTagInDictDBException();
-
+            if (markupDictionaryEntity == null) { throw new NoUsedTagInDictDBException(); }
             fromDatabaseParagraphEntity.setTag(markupDictionaryEntity);
             isChanged = true;
         }
 
-        if (!fromDatabaseParagraphEntity.getParagraphContent()
-                .equals(newParagraphEntity.getParagraphContent())) {
+        if (theyHaveDifferentContent(fromDatabaseParagraphEntity, newParagraphEntity)) {
             fromDatabaseParagraphEntity.setParagraphContent(
                     newParagraphEntity.getParagraphContent());
-
             isChanged = true;
         }
 
-        if (!isChanged) throw new NothingToChangeException();
-
+        if (!isChanged) { throw new NothingToChangeException(); }
         ParagraphEntity savedParagraphEntity = paragraphRepository.save(fromDatabaseParagraphEntity);
-
         deleteMarkupIfDependenciesNotExist(oldMarkupDictionaryEntity.getId());
-
         return ParagraphMapper.mapToResponseDto(savedParagraphEntity);
     }
 
+
+
     @Transactional
     public ParagraphResponseDTO getParagraph(Integer id) {
-
-        if (!paragraphRepository.existsById(id)) {
-            throw new EntityWithIdNotExistException(id);
-        }
-
+        throwIfParagraphWithIdNotExist(id);
         return ParagraphMapper.mapToResponseDto(paragraphRepository.findFirstById(id));
     }
 
     @Transactional
     public void deleteParagraphById(Integer id) {
+        throwIfParagraphWithIdNotExist(id);
+        ParagraphEntity deletingParagraph = paragraphRepository.findFirstById(id);
+        paragraphRepository.deleteById(id);
+        deleteMarkupIfDependenciesNotExist(deletingParagraph.getTag().getId());
+    }
 
+    private static boolean theyHaveDifferentTags(ParagraphEntity fromDatabaseParagraphEntity, ParagraphEntity newParagraphEntity) {
+        return !fromDatabaseParagraphEntity
+                .getTag()
+                .getOpening()
+                .equals(newParagraphEntity
+                        .getTag()
+                        .getOpening());
+    }
+
+    private static boolean theyHaveDifferentContent(ParagraphEntity fromDatabaseParagraphEntity, ParagraphEntity newParagraphEntity) {
+        return !fromDatabaseParagraphEntity.getParagraphContent()
+                .equals(newParagraphEntity.getParagraphContent());
+    }
+    private void throwIfParagraphWithIdNotExist(Integer id) {
         if (!paragraphRepository.existsById(id)) {
             throw new EntityWithIdNotExistException(id);
         }
-
-        ParagraphEntity deletingParagraph = paragraphRepository.findFirstById(id);
-
-        paragraphRepository.deleteById(id);
-
-        deleteMarkupIfDependenciesNotExist(deletingParagraph.getTag().getId());
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

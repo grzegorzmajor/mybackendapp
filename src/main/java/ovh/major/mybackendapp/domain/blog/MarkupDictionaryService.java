@@ -27,16 +27,15 @@ class MarkupDictionaryService {
     }
 
     public MarkupDictionaryResponseDTO saveMarkup(MarkupDictionaryRequestDTO requestDTO) {
-
-        MarkupDictionaryEntity markupDictionaryEntity = markupDictionaryRepository.findFirstByOpening(requestDTO.opening());
-
+        MarkupDictionaryEntity markupDictionaryEntity =
+                markupDictionaryRepository.findFirstByOpening(
+                        requestDTO.opening());
         if (markupDictionaryEntity != null) {
             throw new DuplicatedTagInDictException();
         }
         return MarkupDictionaryMapper.mapToResponseDto(
                 markupDictionaryRepository.save(
                         MarkupDictionaryMapper.mapFromRequestDto(requestDTO)
-                )
-        );
+                ));
     }
 }

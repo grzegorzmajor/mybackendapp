@@ -449,6 +449,9 @@ public class TypicalScenarioUserWantToSeeAndAddPostsIntegrationTest extends DBIn
                         .replace("\"id\":\"xx\",", "\"id\":\"" + someParagraphId +  "\","),
                 Examples.PARAGRAPH_2
                         .toString()
+                        .replace("\"id\":\"xx\",", "\"id\":\"" + someParagraphId +  "\","),
+                Examples.PARAGRAPH_3
+                        .toString()
                         .replace("\"id\":\"xx\",", "\"id\":\"" + someParagraphId +  "\","));
     }
 

@@ -62,11 +62,7 @@ class PostService {
 
     @Transactional
     public PostResponseDTO patchPost(Integer id, Timestamp timestamp) {
-
-        if (!postRepository.existsById(id)) {
-            throw new EntityWithIdNotExistException(id);
-        }
-
+        throwIfPostNotExistById(id);
         PostEntity inDbPostEntity = postRepository.findById(id)
                 .orElseThrow();
 
@@ -82,11 +78,7 @@ class PostService {
 
     @Transactional
     public PostResponseDTO findPostById(Integer id) {
-
-        if (!postRepository.existsById(id)) {
-            throw new EntityWithIdNotExistException(id);
-        }
-
+        throwIfPostNotExistById(id);
         return PostMapper.mapToResponseDto(
                 postRepository.findById(id)
                         .orElseThrow());
@@ -94,12 +86,14 @@ class PostService {
 
     @Transactional
     public void deletePostById(Integer id) {
+        throwIfPostNotExistById(id);
+        postRepository.deleteById(id);
+    }
 
+    private void throwIfPostNotExistById(Integer id) {
         if (!postRepository.existsById(id)) {
             throw new EntityWithIdNotExistException(id);
         }
-
-        postRepository.deleteById(id);
     }
 
     private List<ParagraphEntity> findAndReturnParagraphListWithThemWhenExistInRepository(List<ParagraphEntity> paragraphEntities) {
