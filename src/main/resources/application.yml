@@ -17,15 +17,17 @@ components:
 
 spring:
   jpa:
-    #show-sql: true
     hibernate:
-      #It is a good security practice to, after your database is in a production state, set this to none, revoke all
-      #privileges from the MySQL user connected to the Spring application, and give the MySQL user only SELECT, UPDATE, INSERT, and DELETE.
-      ddl-auto: update
+      ddl-auto: validate
     open-in-view: false
   sql:
     init:
       mode: always
+  flyway:
+    url: jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASS}
+    locations: classpath:db/migrations
 
 server:
   ssl:
