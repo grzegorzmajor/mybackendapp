@@ -16,7 +16,7 @@ class MarkupDictionaryMapper {
     public static MarkupDictionaryResponseDTO mapToResponseDto(MarkupDictionaryEntity markupDictionary) {
         return MarkupDictionaryResponseDTO.builder()
                 .id(markupDictionary.getId())
-                .opening("</" + markupDictionary.getTagName() + " class=\"" + markupDictionary.getClassName() + "\">")
+                .opening("<" + markupDictionary.getTagName() + " class=\"" + markupDictionary.getClassName() + "\">")
                 .closing("</" + markupDictionary.getTagName() + ">")
                 .build();
     }
