@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 interface MarkupDictionaryRepository extends CrudRepository<MarkupDictionaryEntity, Integer> {
 
-    MarkupDictionaryEntity findFirstByOpening(String opening);
+    MarkupDictionaryEntity findFirstByTagName(String tagName);
 
     @Modifying
     @Query("DELETE MarkupDictionaryEntity m WHERE m.id = :id")
