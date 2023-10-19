@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
@@ -19,11 +18,10 @@ class MarkupDictionaryEntity {
     private Integer id;
 
     @NotBlank
-    @Pattern(regexp = "<([^\\s/\\\\]).*>", message = "The opening tag must start with '<', the second character cannot be a space or / \\ and end with '>'")
     @Column(unique = true)
-    private String opening;
+    private String tagName;
 
     @NotBlank
-    @Pattern(regexp = "</[^\\s]*>", message = "The string must start with '</' and end with '>' without containing spaces")
-    private String closing;
+    private String className;
+
 }
