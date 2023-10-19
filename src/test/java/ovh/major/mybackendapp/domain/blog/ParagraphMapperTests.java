@@ -33,8 +33,8 @@ class ParagraphMapperTests {
                 () -> assertThat(paragraphEntity.getParagraphContent().size()).isEqualTo(2),
                 () -> assertThat(paragraphEntity.getParagraphContent().get(0).length()).isEqualTo(255),
                 () -> assertThat(paragraphEntity.getId()).isEqualTo(paragraphRequestDTO.id()),
-                () -> assertThat(paragraphEntity.getTag().getOpening()).isEqualTo(paragraphRequestDTO.tag().opening()),
-                () -> assertThat(paragraphEntity.getTag().getClosing()).isEqualTo(paragraphRequestDTO.tag().closing()),
+                () -> assertThat(paragraphEntity.getTag().getTagName()).isEqualTo(paragraphRequestDTO.tag().tagName()),
+                () -> assertThat(paragraphEntity.getTag().getClassName()).isEqualTo(paragraphRequestDTO.tag().className()),
                 () -> assertThat(paragraphEntity.getTag().getId()).isEqualTo(paragraphRequestDTO.tag().id())
         );
     }
@@ -45,8 +45,8 @@ class ParagraphMapperTests {
                 .id(1)
                 .tag(MarkupDictionaryEntity.builder()
                         .id(1)
-                        .opening("<h1>")
-                        .closing("</h1>")
+                        .tagName("h1")
+                        .className("")
                         .build())
                 .paragraphContent(listOf30StringsOf10CharactersEach())
                 .build();
@@ -58,9 +58,8 @@ class ParagraphMapperTests {
                 ()-> assertThat(paragraphResponseDTO.paragraphContent().length()).isEqualTo(300),
                 ()-> assertThat(paragraphResponseDTO.id()).isEqualTo(paragraphEntity.getId()),
                 ()-> assertThat(paragraphResponseDTO.tag().id()).isEqualTo(paragraphEntity.getTag().getId()),
-                ()-> assertThat(paragraphResponseDTO.tag().opening()).isEqualTo(paragraphEntity.getTag().getOpening()),
-                ()-> assertThat(paragraphResponseDTO.tag().closing()).isEqualTo(paragraphEntity.getTag().getClosing())
-        );
+                ()-> assertThat(paragraphResponseDTO.tag().opening()).contains(paragraphEntity.getTag().getClassName()),
+                ()-> assertThat(paragraphResponseDTO.tag().closing().contains(paragraphEntity.getTag().getClassName())));
     }
 
     private String string300CharactersLong() {

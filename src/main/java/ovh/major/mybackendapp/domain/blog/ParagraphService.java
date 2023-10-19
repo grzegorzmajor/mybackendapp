@@ -31,9 +31,9 @@ class ParagraphService {
 
         if (theyHaveDifferentTags(fromDatabaseParagraphEntity, newParagraphEntity)) {
             MarkupDictionaryEntity markupDictionaryEntity =
-                    markupDictionaryRepository.findFirstByOpening(newParagraphEntity
+                    markupDictionaryRepository.findFirstByTagName(newParagraphEntity
                             .getTag()
-                            .getOpening());
+                            .getTagName());
             if (markupDictionaryEntity == null) { throw new NoUsedTagInDictDBException(); }
             fromDatabaseParagraphEntity.setTag(markupDictionaryEntity);
             isChanged = true;
@@ -70,10 +70,10 @@ class ParagraphService {
     private static boolean theyHaveDifferentTags(ParagraphEntity fromDatabaseParagraphEntity, ParagraphEntity newParagraphEntity) {
         return !fromDatabaseParagraphEntity
                 .getTag()
-                .getOpening()
+                .getTagName()
                 .equals(newParagraphEntity
                         .getTag()
-                        .getOpening());
+                        .getTagName());
     }
 
     private static boolean theyHaveDifferentContent(ParagraphEntity fromDatabaseParagraphEntity, ParagraphEntity newParagraphEntity) {

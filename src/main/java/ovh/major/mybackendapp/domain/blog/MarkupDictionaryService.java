@@ -28,8 +28,8 @@ class MarkupDictionaryService {
 
     public MarkupDictionaryResponseDTO saveMarkup(MarkupDictionaryRequestDTO requestDTO) {
         MarkupDictionaryEntity markupDictionaryEntity =
-                markupDictionaryRepository.findFirstByOpening(
-                        requestDTO.opening());
+                markupDictionaryRepository.findFirstByTagName(
+                        requestDTO.tagName());
         if (markupDictionaryEntity != null) {
             throw new DuplicatedTagInDictException();
         }

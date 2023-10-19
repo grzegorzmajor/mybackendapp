@@ -99,8 +99,8 @@ class PostService {
     private List<ParagraphEntity> findAndReturnParagraphListWithThemWhenExistInRepository(List<ParagraphEntity> paragraphEntities) {
         return paragraphEntities.stream()
                 .peek(paragraph -> {
-                    MarkupDictionaryEntity responseFromDatabaseTagEntity = markupDictionaryRepository.findFirstByOpening(
-                            paragraph.getTag().getOpening());
+                    MarkupDictionaryEntity responseFromDatabaseTagEntity = markupDictionaryRepository.findFirstByTagName(
+                            paragraph.getTag().getTagName());
                     if (responseFromDatabaseTagEntity != null) {
                         paragraph.setTag(responseFromDatabaseTagEntity);
                     } else {

@@ -14,24 +14,24 @@ public enum Examples {
             "        {            \n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +
-            "                    \"closing\": \"</h3>\"\n" +
+            "                    \"className\": \"h3\",\n" +
+            "                    \"tagName\": \"blog__h3\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Pierwsze testy integracyjne\"\n" +
             "        },        \n" +
             "        {            \n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +
-            "                    \"closing\": \"</h3>\"\n" +
+            "                    \"className\": \"h3\",\n" +
+            "                    \"tagName\": \"blog__h3\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Pierwsze testy integracyjne linia 2\"\n" +
             "        },        \n" +
             "        {            \n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +
-            "                    \"closing\": \"</h3>\"\n" +
+            "                    \"className\": \"h3\",\n" +
+            "                    \"tagName\": \"blog__h3\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Czas już było wrócić do mojego backendu do bloga.\" \n" +
             "        }\n" +
@@ -44,16 +44,16 @@ public enum Examples {
             "        {            \n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +
-            "                    \"closing\": \"</h3>\"\n" +
+            "                    \"className\": \"h3\",\n" +
+            "                    \"tagName\": \"blog__h3\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Pierwsze testy integracyjne\"\n" +
             "        },        \n" +
             "        {            \n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +
-            "                    \"closing\": \"</h3>\"\n" +
+            "                    \"className\": \"h3\",\n" +
+            "                    \"tagName\": \"blog__h3\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Czas już było wrócić do mojego backendu do bloga.\" \n" +
             "        }\n" +
@@ -63,8 +63,8 @@ public enum Examples {
             "           \"id\":\"xx\",\n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +
-            "                    \"closing\": \"</h3>\"\n" +
+            "                    \"className\": \"h3\",\n" +
+            "                    \"tagName\": \"blog__h3\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Pierwsze testy integracyjne wersja 2\"\n" +
             "}"),
@@ -72,8 +72,8 @@ public enum Examples {
             "           \"id\":\"xx\",\n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<p>\",\n" +
-            "                    \"closing\": \"</p>\"\n" +
+            "                    \"className\": \"p\",\n" +
+            "                    \"tagName\": \"\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Pierwsze testy integracyjne wersja 3\"\n" +
             "}"),
@@ -81,20 +81,20 @@ public enum Examples {
             "           \"id\":\"xx\",\n" +
             "            \"tag\": {\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<p>\",\n" +
-            "                    \"closing\": \"</p>\"\n" +
+            "                    \"className\": \"p\",\n" +
+            "                    \"tagName\": \"\"\n" +
             "                },\n" +
             "            \"paragraphContent\": \"Pierwsze testy integracyjne\"\n" +
             "}"),
     TAG_H3("{\n" +
             "                    \"id\":\"\",\n" +
-            "                    \"opening\": \"<h3 class=\\\"blog__h3\\\">\",\n" +
-            "                    \"closing\": \"</h3>\"\n" +
+            "                    \"className\": \"h3\",\n" +
+            "                    \"tagName\": \"blog__h3\"\n" +
             "}"),
     TAG_P("{\n" +
-                   "                    \"id\":\"\",\n" +
-                   "                    \"opening\": \"<p>\",\n" +
-                   "                    \"closing\": \"</p>\"\n" +
+            "                    \"id\":\"\",\n" +
+            "                    \"className\": \"p\",\n" +
+            "                    \"tagName\": \"\"\n" +
                    "}");
 
 
