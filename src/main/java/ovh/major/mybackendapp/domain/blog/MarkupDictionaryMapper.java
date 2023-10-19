@@ -8,16 +8,16 @@ class MarkupDictionaryMapper {
     public static MarkupDictionaryEntity mapFromRequestDto(MarkupDictionaryRequestDTO requestDTO) {
         return MarkupDictionaryEntity.builder()
                 .id(requestDTO.id())
-                .opening(requestDTO.opening())
-                .closing(requestDTO.closing())
+                .tagName(requestDTO.tagName())
+                .className(requestDTO.className())
                 .build();
     }
 
     public static MarkupDictionaryResponseDTO mapToResponseDto(MarkupDictionaryEntity markupDictionary) {
         return MarkupDictionaryResponseDTO.builder()
                 .id(markupDictionary.getId())
-                .opening(markupDictionary.getOpening())
-                .closing(markupDictionary.getClosing())
+                .opening("</" + markupDictionary.getTagName() + " class=\"" + markupDictionary.getClassName() + "\">")
+                .closing("</" + markupDictionary.getTagName() + ">")
                 .build();
     }
 }
