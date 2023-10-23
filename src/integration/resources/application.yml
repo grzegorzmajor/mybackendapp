@@ -26,6 +26,8 @@ spring:
   sql:
     init:
       mode: always
+  cache:
+    type: none
 server:
   ssl:
     enabled: false
