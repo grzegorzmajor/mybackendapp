@@ -2,6 +2,7 @@ package ovh.major.mybackendapp.domain.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ovh.major.mybackendapp.domain.blog.dto.*;
@@ -38,6 +39,7 @@ public class BlogFacade {
         return postService.findAllPostsPageable(pageable, false);
     }
 
+    @Cacheable(cacheNames = "publishedPosts")
     public Page<PostResponseDTO> findAllForPublicationPostsPageable(Pageable pageable) {
         return postService.findAllPostsPageable(pageable, true);
     }
