@@ -16,6 +16,13 @@ components:
       bearerFormat: JWT
 
 spring:
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      database: 0
+#      username: "user"
+#      password: "secret"
   jpa:
     hibernate:
       ddl-auto: validate
@@ -28,6 +35,10 @@ spring:
     user: ${DB_USER}
     password: ${DB_PASS}
     locations: classpath:db/migrations
+  cache:
+    type: redis
+    redis:
+      time-to-live: PT30S
 
 server:
   ssl:
