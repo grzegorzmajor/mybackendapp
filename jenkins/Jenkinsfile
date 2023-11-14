@@ -1,25 +1,23 @@
 pipeline {
     agent any
     stages {
-        stages {
-            stage('Checkout') {
-                steps {
-                    script {
-                        checkout scm
-                    }
+        stage('Checkout') {
+            steps {
+                script {
+                    checkout scm
                 }
             }
+        }
     }
     post {
-            always {
-                // Tu dodaj kroki, które mają być wykonane zawsze, niezależnie od rezultatu
-            }
-            success {
-                // Tu dodaj kroki, które mają być wykonane tylko w przypadku sukcesu
-            }
-            failure {
-                // Tu dodaj kroki, które mają być wykonane tylko w przypadku niepowodzenia
-            }
+        always {
+            // Tu dodaj kroki, które mają być wykonane zawsze, niezależnie od rezultatu
+        }
+        success {
+            // Tu dodaj kroki, które mają być wykonane tylko w przypadku sukcesu
+        }
+        failure {
+            // Tu dodaj kroki, które mają być wykonane tylko w przypadku niepowodzenia
         }
     }
 }
