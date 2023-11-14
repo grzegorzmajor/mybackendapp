@@ -9,15 +9,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            // Tu dodaj kroki, które mają być wykonane zawsze, niezależnie od rezultatu
-        }
-        success {
-            // Tu dodaj kroki, które mają być wykonane tylko w przypadku sukcesu
-        }
-        failure {
-            // Tu dodaj kroki, które mają być wykonane tylko w przypadku niepowodzenia
-        }
-    }
 }
