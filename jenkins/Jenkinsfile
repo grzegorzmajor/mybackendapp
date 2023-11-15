@@ -11,7 +11,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    def mvnHome = tool 'Maven3'
+                    def mvnHome = tool 'maven'
                     sh "${mvnHome}/bin/mvn test"
                 }
             }
