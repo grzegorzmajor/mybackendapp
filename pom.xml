@@ -144,6 +144,7 @@
                                 <include>**/*.properties</include>
                                 <include>**/*.yml</include>
                                 <include>**/*.p12</include>
+                                <include>**/*.sql</include>
                             </includes>
                         </resource>
                     </resources>

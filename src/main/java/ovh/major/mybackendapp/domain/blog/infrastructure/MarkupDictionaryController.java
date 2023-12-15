@@ -18,12 +18,20 @@ class MarkupDictionaryController {
 
     BlogFacade blogFacade;
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.GET
+    )
     @GetMapping
     public ResponseEntity<List<MarkupDictionaryResponseDTO>> findAllMarkups() {
         List<MarkupDictionaryResponseDTO> allMarkups = blogFacade.findAllMarkups();
         return ResponseEntity.ok(allMarkups);
     }
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.POST
+    )
     @PostMapping
     public ResponseEntity<MarkupDictionaryResponseDTO> addMarkup(@RequestBody MarkupDictionaryRequestDTO requestDTO) {
         MarkupDictionaryResponseDTO responseDTO;

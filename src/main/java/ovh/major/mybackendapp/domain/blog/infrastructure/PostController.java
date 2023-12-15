@@ -33,30 +33,50 @@ class PostController {
         return ResponseEntity.ok(postsPage);
     }
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.GET
+    )
     @GetMapping(value = "/with-unpublished", params = {"page", "size"})
     public ResponseEntity<Page<PostResponseDTO>> findAllFPostsPageable(Pageable pageable) {
         Page<PostResponseDTO> postsPage = blogFacade.findAllPostsPageable(pageable);
         return ResponseEntity.ok(postsPage);
     }
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.GET
+    )
     @GetMapping(value = "/{id}")
     public ResponseEntity<PostResponseDTO> findPostById(@PathVariable Integer id) {
         PostResponseDTO post = blogFacade.findPostById(id);
         return ResponseEntity.ok(post);
     }
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.POST
+    )
     @PostMapping
     public ResponseEntity<PostResponseDTO> addPost(@RequestBody PostRequestDTO requestDTO) {
         PostResponseDTO responseDTO = blogFacade.savePost(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.PATCH
+    )
     @PatchMapping("/{id}")
     public ResponseEntity<PostResponseDTO> patchPost(@PathVariable Integer id, @RequestParam String timestamp) {
         PostResponseDTO responseDTO = blogFacade.patchPost(id, Timestamp.valueOf(timestamp.replace("T"," ")));
         return ResponseEntity.ok(responseDTO);
     }
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.DELETE
+    )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePost(@PathVariable Integer id) {

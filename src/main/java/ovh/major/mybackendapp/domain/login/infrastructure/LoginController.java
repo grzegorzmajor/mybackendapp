@@ -17,6 +17,7 @@ import javax.validation.Valid;
 class LoginController {
 
     private final JwtAuthenticatorFacade jwtAuthenticatorFacade;
+
     @PostMapping("/login")
     @CrossOrigin(
             origins = "*",

@@ -17,18 +17,29 @@ class ParagraphController {
 
     BlogFacade blogFacade;
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.PATCH
+    )
     @PatchMapping
     public ResponseEntity<ParagraphResponseDTO> patchParagraph(@RequestBody ParagraphRequestDTO requestDTO) {
         ParagraphResponseDTO responseDTO = blogFacade.patchParagraph(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.GET
+    )
     @GetMapping("/{id}")
     public ResponseEntity<ParagraphResponseDTO> getParagraph(@PathVariable Integer id) {
         ParagraphResponseDTO responseDTO = blogFacade.getParagraph(id);
         return ResponseEntity.ok(responseDTO);
     }
-
+    @CrossOrigin(
+            origins = "*",
+            methods = RequestMethod.DELETE
+    )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteParagraph(@PathVariable Integer id) {

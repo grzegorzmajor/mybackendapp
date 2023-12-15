@@ -14,7 +14,8 @@ import javax.validation.constraints.NotBlank;
 class MarkupDictionaryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "markup_dictionary_entity_seq")
+    @SequenceGenerator(name = "markup_dictionary_entity_seq", sequenceName = "markup_dictionary_entity_seq", allocationSize = 1)
     private Integer id;
 
     @NotBlank

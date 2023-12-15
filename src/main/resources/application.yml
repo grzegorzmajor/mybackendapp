@@ -25,7 +25,7 @@ spring:
 #      password: "secret"
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     open-in-view: false
   sql:
     init:
@@ -35,6 +35,7 @@ spring:
     user: ${DB_USER}
     password: ${DB_PASS}
     locations: classpath:db/migrations
+    baseline-on-migrate: true
   cache:
     type: redis
     redis:

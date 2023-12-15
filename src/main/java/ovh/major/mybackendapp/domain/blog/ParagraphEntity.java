@@ -14,7 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 class ParagraphEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "paragraph_entity_seq")
+    @SequenceGenerator(name = "paragraph_entity_seq", sequenceName = "paragraph_entity_seq", allocationSize = 1)
     private Integer id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
